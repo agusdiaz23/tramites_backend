@@ -18,11 +18,8 @@ public class Autorizacion {
     @Enumerated(EnumType.STRING)
     private EstadoAutorizacion estado;
 
-    public Autorizacion(){
-        super();
-    }
+    public Autorizacion(){}
     public Autorizacion(Date fechaExpedida, Date fechaVencimiento, TipoAutorizacion tipo, EstadoAutorizacion estado){
-        super();
         this.fechaExpedida = fechaExpedida;
         this.fechaVencimiento = fechaVencimiento;
         this.tipo = tipo;

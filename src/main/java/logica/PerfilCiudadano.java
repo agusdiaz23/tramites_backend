@@ -24,11 +24,8 @@ public class PerfilCiudadano {
     private List<Tramite> tramites = new ArrayList<>();
 
 
-    public PerfilCiudadano(){
-        super();
-    }
+    public PerfilCiudadano(){}
     public PerfilCiudadano(String direccion, Date fecha, EstadoCivil estado){
-        super();
         this.direccion= direccion;
         this.fechaNacimiento = fecha;
         this.estadoCivil = estado;

@@ -18,11 +18,8 @@ public class EventoTramite {
     @ManyToOne
     private EventoTramite evento;
 
-    public EventoTramite(){
-        super();
-    }
+    public EventoTramite(){}
     public EventoTramite(Date fecha, TipoEvento tipo, String motivo){
-        super();
         this.fecha = fecha;
         this.tipo = tipo;
         this.motivo = motivo;

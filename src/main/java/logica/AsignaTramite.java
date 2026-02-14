@@ -15,21 +15,18 @@ public class AsignaTramite {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaAsignado;
 
-    @OneToOne(mappedBy = "usuario")
-    @JoinColumn(name="func_asigna")         //PUEDE ROMPERSE YA QUE USUARIO ES OTRA RELACION
-                                            //BUSCA TRAER LA CI
+    @OneToOne
+    @JoinColumn(name="func_asigna")
     private PerfilFuncionario funcionarioAsigna;
 
-    @OneToMany(mappedBy = "usuario")
+    @ManyToMany
     @JoinColumn(name = "func_asignado")
     private List<PerfilFuncionario> funcionariosAsignados = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     private Tramite tramite;
 
-    public AsignaTramite(){
-        super();
-    }
+    public AsignaTramite(){}
     public AsignaTramite(Date fecha){
         this.fechaAsignado = fecha;
     }

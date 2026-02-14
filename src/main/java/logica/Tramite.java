@@ -31,9 +31,7 @@ public class Tramite {
     @OneToMany(cascade = CascadeType.ALL)
     private List<EventoTramite> eventosTramites = new ArrayList<>();
 
-    public Tramite() {
-        super();
-    }
+    public Tramite() {}
 
     public Tramite(Date fechaInicio, Date fechaVencimiento, Date fechaFinalizado, TipoTramite tipo, EstadoTramite estado) {
         this.fechaInicio = fechaInicio;

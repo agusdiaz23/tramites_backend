@@ -18,14 +18,11 @@ public class PerfilFuncionario {
     @OneToMany
     private List<EventoTramite> eventos;
 
-    @OneToMany
-    private List<AsignaTramite> tramitesAsigno;
+   // @OneToMany
+    //private List<AsignaTramite> tramitesAsigno;
 
-    public PerfilFuncionario(){
-        super();
-    }
+    public PerfilFuncionario(){}
     public PerfilFuncionario(Cargo cargo){
-        super();
         this.cargo = cargo;
     }
     public int getId(){return this.id;}

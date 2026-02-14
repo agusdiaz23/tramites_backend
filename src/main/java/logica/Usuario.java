@@ -1,16 +1,17 @@
 package logica;
 
+import java.util.*;
 import jakarta.persistence.*;
 
 @Entity
 public class Usuario {
 
     @Id
-    @Column(name = "ci_usuario", nullable = false, unique = true)
+    @Column(name = "ci_usuario", unique = true)
     private String ci;
-    @Column(nullable = false)
+    @Column
     private String nombre;
-    @Column(nullable = false)
+    @Column
     private String apellido;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -19,15 +20,14 @@ public class Usuario {
     @OneToOne(cascade = CascadeType.ALL)
     private PerfilFuncionario funcionario;
 
-
-    public Usuario(){
-        super();
-    }
-    public Usuario(String ci, String nombre, String apellido){
-        super();
+    public Usuario(){}
+    public Usuario(String ci, String nombre, String apellido, PerfilCiudadano ciudadano,
+                   PerfilFuncionario funcionario){
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.ciudadano = ciudadano;
+        this.funcionario = funcionario;
     }
     public void setCi(String ci){
         this.ci = ci;
@@ -38,6 +38,12 @@ public class Usuario {
     public void setApellido(String apellido){
         this.apellido = apellido;
     }
+    public void setCiudadano(PerfilCiudadano ciudadano) {
+        this.ciudadano = ciudadano;
+    }
+    public void setFuncionario(PerfilFuncionario funcionario) {
+        this.funcionario = funcionario;
+    }
 
     public String getCi(){
         return this.ci;
@@ -47,6 +53,12 @@ public class Usuario {
     }
     public String getApellido(){
         return this.apellido;
+    }
+    public PerfilFuncionario getFuncionario() {
+        return funcionario;
+    }
+    public PerfilCiudadano getCiudadano() {
+        return ciudadano;
     }
 
 }
