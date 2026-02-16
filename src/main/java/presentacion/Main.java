@@ -2,6 +2,8 @@ package presentacion;
 
 import java.util.*;
 
+import interfaces.Fabrica;
+import interfaces.IControladorAltaUsuario;
 import jakarta.persistence.EntityManager;
 import logica.*;
 import datatypes.*;
@@ -10,13 +12,6 @@ import persistencia.Conexion;
 public class Main {
     public static void main()
     {
-
-        EntityManager em = Conexion.getInstancia().getEntityManager();
-        em.getTransaction().begin();
-        Usuario u = new Usuario();
-        u.setCi("123");
-        em.persist(u);
-        em.getTransaction().commit();
-        em.close();
+        Fabrica.getInstancia().getControladorAltaUsuario().AltaUsuario(new DtUsuario("123", "agus", "diaz"));
     }
 }
