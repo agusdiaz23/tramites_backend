@@ -4,9 +4,9 @@ import datatypes.DtPerfilCiudadano;
 import datatypes.DtPerfilFuncionario;
 import datatypes.DtUsuario;
 import datatypes.DtPerfil;
-import interfaces.IControladorAltaPerfil;
+import interfaces.IControladorPerfil;
 
-public class ControladorAltaPerfil implements IControladorAltaPerfil {
+public class ControladorPerfil implements IControladorPerfil {
     private static ManejadorFuncionario manejadorFuncionario = ManejadorFuncionario.getInstancia();
     private static ManejadorUsuario manejadorUsuario = ManejadorUsuario.getInstancia();
 

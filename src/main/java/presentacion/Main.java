@@ -1,13 +1,10 @@
 package presentacion;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import interfaces.Fabrica;
-import interfaces.IControladorAltaUsuario;
-import jakarta.persistence.EntityManager;
-import logica.*;
 import datatypes.*;
-import persistencia.Conexion;
 
 public class Main {
     public static void main()
@@ -19,7 +16,18 @@ public class Main {
         DtPerfilCiudadano ciudadano = new DtPerfilCiudadano();
         ciudadano.setDireccion("mikasa");
         ciudadano.setEstadoCivil(EstadoCivil.DIVORCIADO);
-       // ciudadano.setFechaNacimiento(new Date("2004-01-12"));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date fecha;
+
+        try {
+            fecha = sdf.parse("17/02/2026");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        ciudadano.setFechaNacimiento(fecha);
+
 
         Fabrica.getInstancia().getControladorAltaUsuario().AltaUsuario(usuario);
         Fabrica.getInstancia().getControladorAltaFuncionario().AltaPerfil(usuario,funcionario);

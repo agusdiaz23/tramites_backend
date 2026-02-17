@@ -1,41 +1,30 @@
-package logica;
+package datatypes;
+
+import jakarta.persistence.*;
+import logica.AsignaTramite;
+import logica.Autorizacion;
+import logica.EventoTramite;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import datatypes.*;
-import jakarta.persistence.*;
+public class DtTramite {
 
-@Entity
-public class Tramite {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
-    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaVencimiento;
-    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaFinalizado;
-    @Enumerated(EnumType.STRING)
     private TipoTramite tipo;
-    @Enumerated(EnumType.STRING)
     private EstadoTramite estado;
-
-    @ManyToOne
-    private PerfilCiudadano ciudadano;
-    @ManyToOne(cascade = CascadeType.ALL)
     private AsignaTramite asignaTramite;
-    @OneToOne(cascade = CascadeType.ALL)
     private Autorizacion autorizacion;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<EventoTramite> eventosTramites = new ArrayList<>();
+    //private List<EventoTramite> eventosTramites = new ArrayList<>();
 
-    public Tramite() {}
+    public DtTramite() {}
 
-    public Tramite(Date fechaInicio, Date fechaVencimiento, Date fechaFinalizado,
-                   TipoTramite tipo, EstadoTramite estado) {
+    public DtTramite(Date fechaInicio, Date fechaVencimiento, Date fechaFinalizado,
+                     TipoTramite tipo, EstadoTramite estado) {
         this.fechaInicio = fechaInicio;
         this.fechaVencimiento = fechaVencimiento;
         this.fechaFinalizado = fechaFinalizado;
@@ -61,7 +50,6 @@ public class Tramite {
     public void setEstado(EstadoTramite estado) {
         this.estado = estado;
     }
-    public void setPerfilCiudadano(PerfilCiudadano ciudadano){this.ciudadano=ciudadano;}
 
     public int getId() {
         return id;
@@ -81,5 +69,4 @@ public class Tramite {
     public EstadoTramite getEstado() {
         return estado;
     }
-    public PerfilCiudadano getPerfilCiudadano(){ return ciudadano;}
 }

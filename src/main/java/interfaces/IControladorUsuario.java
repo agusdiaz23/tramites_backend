@@ -2,7 +2,7 @@ package interfaces;
 
 import datatypes.DtUsuario;
 
-public interface IControladorAltaUsuario {
+public interface IControladorUsuario {
 
     void AltaUsuario(DtUsuario usuario);
 

@@ -1,9 +1,9 @@
 package logica;
 
 import datatypes.DtUsuario;
-import interfaces.IControladorAltaUsuario;
+import interfaces.IControladorUsuario;
 
-public class ControladorAltaUsuario implements IControladorAltaUsuario{
+public class ControladorUsuario implements IControladorUsuario {
 
     private ManejadorUsuario manejadorUsuario = ManejadorUsuario.getInstancia();
 

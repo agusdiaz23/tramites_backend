@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import datatypes.DtTramite;
 import datatypes.EstadoCivil;
 import jakarta.persistence.*;
+import persistencia.Conexion;
 
 @Entity
 public class PerfilCiudadano extends Perfil {
 
     @Column
     private String direccion;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
     @Enumerated(EnumType.STRING)
     private EstadoCivil estadoCivil;
@@ -34,4 +36,15 @@ public class PerfilCiudadano extends Perfil {
     public void setDireccion(String direccion){this.direccion=direccion;}
     public void setFechaNacimiento(Date fecha){this.fechaNacimiento=fecha;}
     public void setEstadoCivil(EstadoCivil estado){this.estadoCivil = estado;}
+
+    public void agregarTramite(Tramite tramite) {
+        EntityManager em = Conexion.getInstancia().getEntityManager();
+
+        this.tramites.add(tramite);
+
+        em.getTransaction().begin();
+        em.persist(tramite);
+        em.getTransaction().commit();
+        em.close();
+    }
 }
