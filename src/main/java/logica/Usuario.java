@@ -14,20 +14,15 @@ public class Usuario {
     @Column
     private String apellido;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private PerfilCiudadano ciudadano;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private PerfilFuncionario funcionario;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Perfil> perfiles = new ArrayList<>();
 
     public Usuario(){}
-    public Usuario(String ci, String nombre, String apellido, PerfilCiudadano ciudadano,
-                   PerfilFuncionario funcionario){
+    public Usuario(String ci, String nombre, String apellido, List<Perfil> perfiles){
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.ciudadano = ciudadano;
-        this.funcionario = funcionario;
+        this.perfiles = perfiles;
     }
     public void setCi(String ci){
         this.ci = ci;
@@ -38,11 +33,8 @@ public class Usuario {
     public void setApellido(String apellido){
         this.apellido = apellido;
     }
-    public void setCiudadano(PerfilCiudadano ciudadano) {
-        this.ciudadano = ciudadano;
-    }
-    public void setFuncionario(PerfilFuncionario funcionario) {
-        this.funcionario = funcionario;
+    public void setPerfiles(List<Perfil> perfiles) {
+        this.perfiles = perfiles;
     }
 
     public String getCi(){
@@ -54,11 +46,11 @@ public class Usuario {
     public String getApellido(){
         return this.apellido;
     }
-    public PerfilFuncionario getFuncionario() {
-        return funcionario;
-    }
-    public PerfilCiudadano getCiudadano() {
-        return ciudadano;
-    }
+    public List<Perfil> getPerfiles() { return perfiles;}
+
+    //void agregarPerfil
+    //void getPerfilCiudadano
+    //void getPerfilFuncionario
+
 
 }

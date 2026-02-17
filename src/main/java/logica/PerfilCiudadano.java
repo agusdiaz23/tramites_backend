@@ -8,11 +8,8 @@ import datatypes.EstadoCivil;
 import jakarta.persistence.*;
 
 @Entity
-public class PerfilCiudadano {
+public class PerfilCiudadano extends Perfil {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
     @Column
     private String direccion;
     @Temporal(TemporalType.TIMESTAMP)
@@ -31,11 +28,9 @@ public class PerfilCiudadano {
         this.estadoCivil = estado;
     }
 
-    public int getId(){return this.id;}
     public String getDireccion(){return this.direccion;}
     public Date getFechaNacimiento(){return this.fechaNacimiento;}
     public EstadoCivil getEstadoCivil(){return this.estadoCivil;}
-    public void setId(int id){this.id=id;}
     public void setDireccion(String direccion){this.direccion=direccion;}
     public void setFechaNacimiento(Date fecha){this.fechaNacimiento=fecha;}
     public void setEstadoCivil(EstadoCivil estado){this.estadoCivil = estado;}
