@@ -26,6 +26,7 @@ public class ControladorAltaPerfil implements IControladorAltaPerfil {
             PerfilCiudadano perfil = new PerfilCiudadano(dtPerfilCiudadano.getDireccion(),
                     dtPerfilCiudadano.getFechaNacimiento(), dtPerfilCiudadano.getEstadoCivil());
             objetoUsuario.agregarPerfil(perfil);
+            System.out.println("todo ok");
         }else{
             //KABUM
         }

@@ -16,7 +16,14 @@ public class Main {
         DtPerfilFuncionario funcionario = new DtPerfilFuncionario();
         funcionario.setCargo(Cargo.INSPECTOR);
 
+        DtPerfilCiudadano ciudadano = new DtPerfilCiudadano();
+        ciudadano.setDireccion("mikasa");
+        ciudadano.setEstadoCivil(EstadoCivil.DIVORCIADO);
+       // ciudadano.setFechaNacimiento(new Date("2004-01-12"));
+
         Fabrica.getInstancia().getControladorAltaUsuario().AltaUsuario(usuario);
         Fabrica.getInstancia().getControladorAltaFuncionario().AltaPerfil(usuario,funcionario);
+        Fabrica.getInstancia().getControladorAltaFuncionario().AltaPerfil(usuario,ciudadano);
+
     }
 }
