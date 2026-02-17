@@ -2,6 +2,7 @@ package logica;
 
 import java.util.*;
 import jakarta.persistence.*;
+import persistencia.Conexion;
 
 @Entity
 public class Usuario {
@@ -14,7 +15,7 @@ public class Usuario {
     @Column
     private String apellido;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Perfil> perfiles = new ArrayList<>();
 
     public Usuario(){}
@@ -48,7 +49,16 @@ public class Usuario {
     }
     public List<Perfil> getPerfiles() { return perfiles;}
 
-    //void agregarPerfil
+    void agregarPerfil(Perfil perfil) {
+        EntityManager em = Conexion.getInstancia().getEntityManager();
+
+        em.getTransaction().begin();
+        this.perfiles.add(perfil);  //no tengo claro si antes tengo q polimorfear
+        perfil.setUsuario(this);
+        em.persist(perfil);
+        em.getTransaction().commit();
+        em.close();
+    }
     //void getPerfilCiudadano
     //void getPerfilFuncionario
 

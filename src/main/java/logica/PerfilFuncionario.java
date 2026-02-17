@@ -15,8 +15,9 @@ public class PerfilFuncionario extends Perfil{
     @OneToMany
     private List<EventoTramite> eventos;
 
-    public PerfilFuncionario(){}
+    public PerfilFuncionario(){super();}
     public PerfilFuncionario(Cargo cargo){
+        super();
         this.cargo = cargo;
     }
     public Cargo getCargo(){return this.cargo;}

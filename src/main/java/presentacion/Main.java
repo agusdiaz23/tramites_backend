@@ -12,6 +12,11 @@ import persistencia.Conexion;
 public class Main {
     public static void main()
     {
-        Fabrica.getInstancia().getControladorAltaUsuario().AltaUsuario(new DtUsuario("123", "agus", "diaz"));
+        DtUsuario usuario =  new DtUsuario("123", "agus", "diaz");
+        DtPerfilFuncionario funcionario = new DtPerfilFuncionario();
+        funcionario.setCargo(Cargo.INSPECTOR);
+
+        Fabrica.getInstancia().getControladorAltaUsuario().AltaUsuario(usuario);
+        Fabrica.getInstancia().getControladorAltaFuncionario().AltaPerfil(usuario,funcionario);
     }
 }
