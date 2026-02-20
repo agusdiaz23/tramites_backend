@@ -20,8 +20,8 @@ public class PerfilCiudadano extends Perfil {
     @Enumerated(EnumType.STRING)
     private EstadoCivil estadoCivil;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Tramite> tramites = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL)
+//    private List<Tramite> tramites = new ArrayList<>();
 
 
     public PerfilCiudadano(){}
@@ -37,15 +37,10 @@ public class PerfilCiudadano extends Perfil {
     public void setDireccion(String direccion){this.direccion=direccion;}
     public void setFechaNacimiento(LocalDate fecha){this.fechaNacimiento=fecha;}
     public void setEstadoCivil(EstadoCivil estado){this.estadoCivil = estado;}
-
-    public void agregarTramite(Tramite tramite) {
-        EntityManager em = Conexion.getInstancia().getEntityManager();
-
-        this.tramites.add(tramite);
-
-        em.getTransaction().begin();
-        em.persist(tramite);
-        em.getTransaction().commit();
-        em.close();
-    }
+//
+//    public void agregarTramite(Tramite tramite) {
+//
+//        this.tramites.add(tramite);
+//
+//    }
 }

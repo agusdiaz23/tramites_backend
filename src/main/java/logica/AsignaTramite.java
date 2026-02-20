@@ -27,18 +27,20 @@ public class AsignaTramite {
     @OneToOne
     private Tramite tramite;
 
+    public AsignaTramite(){
+        this.fechaAsignado = LocalDate.now();
+    }
+    public AsignaTramite(LocalDate fecha){
+        this.fechaAsignado = fecha;
+    }
+
     public PerfilFuncionario getFuncionarioAsigna() {return funcionarioAsigna;}
     public void setFuncionarioAsigna(PerfilFuncionario funcionarioAsigna) {
-        System.out.println("ASOCIADO FUNCIONARIO: "+funcionarioAsigna.getId());
         this.funcionarioAsigna = funcionarioAsigna;}
     public Tramite getTramite() {return tramite;}
     public void setTramite(Tramite tramite) {this.tramite = tramite;}
     public List<PerfilFuncionario> getFuncionariosAsignados() {return funcionariosAsignados;}
     public void setFuncionariosAsignados(List<PerfilFuncionario> funcionariosAsignados) {this.funcionariosAsignados = funcionariosAsignados;}
-    public AsignaTramite(){}
-    public AsignaTramite(LocalDate fecha){
-        this.fechaAsignado = fecha;
-    }
     public void setId(int id){ this.id= id;}
     public void setFechaAsignado(LocalDate fecha){ this.fechaAsignado = fecha;}
     public int getId(){return this.id;}

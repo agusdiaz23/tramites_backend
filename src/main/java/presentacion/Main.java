@@ -18,12 +18,9 @@ public class Main {
         ciudadano.setId(2);
         ciudadano.setDireccion("mikasa");
         ciudadano.setEstadoCivil(EstadoCivil.DIVORCIADO);
-
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         LocalDate fechaNacimiento, fechaInicio, fechaVencimiento;
-
         fechaNacimiento = LocalDate.of(2004, 01, 12);
-
         ciudadano.setFechaNacimiento(fechaNacimiento);
 
         DtTramite tramite = new DtTramite();

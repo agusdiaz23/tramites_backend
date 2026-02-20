@@ -3,6 +3,8 @@ package logica;
 import datatypes.DtPerfilCiudadano;
 import datatypes.DtTramite;
 import interfaces.IControladorTramite;
+import jakarta.persistence.EntityManager;
+import persistencia.Conexion;
 
 public class ControladorTramite implements IControladorTramite{
     private static ManejadorPerfil manejadorPerfil = ManejadorPerfil.getInstancia();
@@ -13,9 +15,15 @@ public class ControladorTramite implements IControladorTramite{
 
         //Busca el perfil sin comprobar tipos, se entiende que desde el front llega el id de un perfil valido.
         PerfilCiudadano perfilCiudadano = (PerfilCiudadano) manejadorPerfil.traerPerfil(dtPerfilCiudadano.getId());
-        perfilCiudadano.agregarTramite(nuevoTramite);
+      //perfilCiudadano.agregarTramite(nuevoTramite);
 
         nuevoTramite.setPerfilCiudadano(perfilCiudadano);
+
+        EntityManager em = Conexion.getInstancia().getEntityManager();
+        em.getTransaction().begin();
+        em.persist(nuevoTramite);
+        em.getTransaction().commit();
+        em.close();
 
     }
 }

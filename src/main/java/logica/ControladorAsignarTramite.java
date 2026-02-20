@@ -33,14 +33,11 @@ public class ControladorAsignarTramite implements IControladorAsignarTramite {
         nuevoAsignaTramite.setFuncionariosAsignados(funcAsignados);
         nuevoAsignaTramite.setFuncionarioAsigna(funcAsigna);
 
-
         em.getTransaction().begin();
         em.persist(nuevoAsignaTramite);
         em.getTransaction().commit();
         em.close();
 
-
-//        tramite.setAsignaTramite(nuevoAsignaTramite);
 
     }
 }

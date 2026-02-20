@@ -7,7 +7,6 @@ import datatypes.DtPerfil;
 import interfaces.IControladorPerfil;
 
 public class ControladorPerfil implements IControladorPerfil {
-    private static ManejadorFuncionario manejadorFuncionario = ManejadorFuncionario.getInstancia();
     private static ManejadorUsuario manejadorUsuario = ManejadorUsuario.getInstancia();
 
     public void AltaPerfil(DtUsuario usuario, DtPerfil dtPerfil){
