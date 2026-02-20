@@ -5,16 +5,14 @@ import logica.AsignaTramite;
 import logica.Autorizacion;
 import logica.EventoTramite;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 public class DtTramite {
 
     private int id;
-    private Date fechaInicio;
-    private Date fechaVencimiento;
-    private Date fechaFinalizado;
+    private LocalDate fechaInicio;
+    private LocalDate fechaVencimiento;
+    private LocalDate fechaFinalizado;
     private TipoTramite tipo;
     private EstadoTramite estado;
     private AsignaTramite asignaTramite;
@@ -23,7 +21,7 @@ public class DtTramite {
 
     public DtTramite() {}
 
-    public DtTramite(Date fechaInicio, Date fechaVencimiento, Date fechaFinalizado,
+    public DtTramite(LocalDate fechaInicio, LocalDate fechaVencimiento, LocalDate fechaFinalizado,
                      TipoTramite tipo, EstadoTramite estado) {
         this.fechaInicio = fechaInicio;
         this.fechaVencimiento = fechaVencimiento;
@@ -35,13 +33,13 @@ public class DtTramite {
     public void setId(int id) {
         this.id = id;
     }
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
-    public void setFechaVencimiento(Date fechaVencimiento) {
+    public void setFechaVencimiento(LocalDate fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
-    public void setFechaFinalizado(Date fechaFinalizado) {
+    public void setFechaFinalizado(LocalDate fechaFinalizado) {
         this.fechaFinalizado = fechaFinalizado;
     }
     public void setTipo(TipoTramite tipo) {
@@ -54,13 +52,13 @@ public class DtTramite {
     public int getId() {
         return id;
     }
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
-    public Date getFechaVencimiento() {
+    public LocalDate getFechaVencimiento() {
         return fechaVencimiento;
     }
-    public Date getFechaFinalizado() {
+    public LocalDate getFechaFinalizado() {
         return fechaFinalizado;
     }
     public TipoTramite getTipo() {

@@ -1,5 +1,6 @@
 package logica;
 
+import java.time.LocalDate;
 import java.util.Date;
 import datatypes.*;
 import jakarta.persistence.*;
@@ -9,17 +10,17 @@ public class Autorizacion {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaExpedida;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaVencimiento;
+   // @Temporal(TemporalType.TIMESTAMP)
+    private LocalDate fechaExpedida;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private LocalDate fechaVencimiento;
     @Enumerated(EnumType.STRING)
     private TipoAutorizacion tipo;
     @Enumerated(EnumType.STRING)
     private EstadoAutorizacion estado;
 
     public Autorizacion(){}
-    public Autorizacion(Date fechaExpedida, Date fechaVencimiento, TipoAutorizacion tipo, EstadoAutorizacion estado){
+    public Autorizacion(LocalDate fechaExpedida, LocalDate fechaVencimiento, TipoAutorizacion tipo, EstadoAutorizacion estado){
         this.fechaExpedida = fechaExpedida;
         this.fechaVencimiento = fechaVencimiento;
         this.tipo = tipo;
@@ -29,10 +30,10 @@ public class Autorizacion {
     public void setId(int id){
         this.id = id;
     }
-    public void setFechaExpedida(Date fecha){
+    public void setFechaExpedida(LocalDate fecha){
         this.fechaExpedida = fecha;
     }
-    public void setFechaVencimiento(Date fecha){
+    public void setFechaVencimiento(LocalDate fecha){
         this.fechaVencimiento = fecha;
     }
     public void setTipoAutorizacion(TipoAutorizacion tipo){
@@ -42,8 +43,8 @@ public class Autorizacion {
         this.estado = estado;
     }
     public int getId(){ return this.id;}
-    public Date getFechaExpedida(){ return this.fechaExpedida;}
-    public Date getFechaVencimiento(){ return this.fechaVencimiento;}
+    public LocalDate getFechaExpedida(){ return this.fechaExpedida;}
+    public LocalDate getFechaVencimiento(){ return this.fechaVencimiento;}
     public TipoAutorizacion getTipoAutorizacion(){return this.tipo;};
     public EstadoAutorizacion getEstadoAutorizacion(){return this.estado;}
 }

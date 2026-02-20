@@ -2,10 +2,10 @@ package logica;
 
 import datatypes.DtPerfilCiudadano;
 import datatypes.DtTramite;
+import interfaces.IControladorTramite;
 
-public class ControladorTramite {
+public class ControladorTramite implements IControladorTramite{
     private static ManejadorPerfil manejadorPerfil = ManejadorPerfil.getInstancia();
-
     public void nuevoTramite(DtPerfilCiudadano dtPerfilCiudadano, DtTramite tramite){
 
         Tramite nuevoTramite = new Tramite(tramite.getFechaInicio(), tramite.getFechaVencimiento(),
@@ -16,6 +16,6 @@ public class ControladorTramite {
         perfilCiudadano.agregarTramite(nuevoTramite);
 
         nuevoTramite.setPerfilCiudadano(perfilCiudadano);
-        
+
     }
 }

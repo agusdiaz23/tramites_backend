@@ -1,5 +1,6 @@
 package logica;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,12 +13,12 @@ public class Tramite {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaInicio;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaVencimiento;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaFinalizado;
+  //  @Temporal(TemporalType.TIMESTAMP)
+    private LocalDate fechaInicio;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private LocalDate fechaVencimiento;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private LocalDate fechaFinalizado;
     @Enumerated(EnumType.STRING)
     private TipoTramite tipo;
     @Enumerated(EnumType.STRING)
@@ -25,8 +26,8 @@ public class Tramite {
 
     @ManyToOne
     private PerfilCiudadano ciudadano;
-    @ManyToOne(cascade = CascadeType.ALL)
-    private AsignaTramite asignaTramite;
+    //@OneToOne(cascade = CascadeType.ALL) //CAMBIAR A LIST PARA HISTORIAL DE ASIGNACIONES
+    //private AsignaTramite asignaTramite;
     @OneToOne(cascade = CascadeType.ALL)
     private Autorizacion autorizacion;
     @OneToMany(cascade = CascadeType.ALL)
@@ -34,7 +35,7 @@ public class Tramite {
 
     public Tramite() {}
 
-    public Tramite(Date fechaInicio, Date fechaVencimiento, Date fechaFinalizado,
+    public Tramite(LocalDate fechaInicio, LocalDate fechaVencimiento, LocalDate fechaFinalizado,
                    TipoTramite tipo, EstadoTramite estado) {
         this.fechaInicio = fechaInicio;
         this.fechaVencimiento = fechaVencimiento;
@@ -46,13 +47,13 @@ public class Tramite {
     public void setId(int id) {
         this.id = id;
     }
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
-    public void setFechaVencimiento(Date fechaVencimiento) {
+    public void setFechaVencimiento(LocalDate fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
-    public void setFechaFinalizado(Date fechaFinalizado) {
+    public void setFechaFinalizado(LocalDate fechaFinalizado) {
         this.fechaFinalizado = fechaFinalizado;
     }
     public void setTipo(TipoTramite tipo) {
@@ -66,13 +67,13 @@ public class Tramite {
     public int getId() {
         return id;
     }
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
-    public Date getFechaVencimiento() {
+    public LocalDate getFechaVencimiento() {
         return fechaVencimiento;
     }
-    public Date getFechaFinalizado() {
+    public LocalDate getFechaFinalizado() {
         return fechaFinalizado;
     }
     public TipoTramite getTipo() {
@@ -82,4 +83,12 @@ public class Tramite {
         return estado;
     }
     public PerfilCiudadano getPerfilCiudadano(){ return ciudadano;}
+
+   /* public AsignaTramite getAsignaTramite() {
+        return asignaTramite;
+    }
+
+    public void setAsignaTramite(AsignaTramite asignaTramite) {
+        this.asignaTramite = asignaTramite;
+    }*/
 }
