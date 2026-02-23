@@ -8,6 +8,7 @@ import persistencia.Conexion;
 
 public class ControladorTramite implements IControladorTramite{
     private static ManejadorPerfil manejadorPerfil = ManejadorPerfil.getInstancia();
+
     public void nuevoTramite(DtPerfilCiudadano dtPerfilCiudadano, DtTramite tramite){
 
         Tramite nuevoTramite = new Tramite(tramite.getFechaInicio(), tramite.getFechaVencimiento(),
@@ -24,6 +25,7 @@ public class ControladorTramite implements IControladorTramite{
         em.persist(nuevoTramite);
         em.getTransaction().commit();
         em.close();
+
 
     }
 }

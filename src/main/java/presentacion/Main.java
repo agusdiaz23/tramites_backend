@@ -69,5 +69,10 @@ public class Main {
         Fabrica.getInstancia().getControladorAsignarTramite().asignarTramite(funcAsigna,
                 tramite, funcionariosAsignados);
 
+        DtEventoTramite eventoTramite = new DtEventoTramite(1,LocalDate.of(2026,2,19),
+                TipoEvento.OBSERVACION, "observado gilacho");
+
+        Fabrica.getInstancia().getControladorEventoTramite().nuevoEvento(tramite, ciudadano, eventoTramite);
+
     }
 }

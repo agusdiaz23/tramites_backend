@@ -48,6 +48,15 @@ public class Tramite {
         this.eventosDisponibles = eventosDisponibles;
     }
 
+    public Tramite(LocalDate fechaInicio, LocalDate fechaVencimiento, LocalDate fechaFinalizado, TipoTramite tipo, EstadoTramite estado) {
+        this.fechaInicio = fechaInicio;
+        this.fechaVencimiento = fechaVencimiento;
+        this.fechaFinalizado = fechaFinalizado;
+        this.tipo = tipo;
+        this.estado = estado;
+        actualizarEventosDisponibles();
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -96,8 +105,8 @@ public class Tramite {
             estado = EstadoTramite.COMPLETADO;
         }else if(tipoEvento == TipoEvento.DEVOLUCION){
             estado = EstadoTramite.DEVUELTO;
-        }else if(tipoEvento == TipoEvento.OBSERVACION){
-            estado = EstadoTramite.OBSERVADO;
+        }else if(tipoEvento == TipoEvento.OBSERVACION) {
+            this.estado = EstadoTramite.OBSERVADO;
         }else if(tipoEvento == TipoEvento.RESPUESTA){
             estado = EstadoTramite.EN_REVISION;
         }
