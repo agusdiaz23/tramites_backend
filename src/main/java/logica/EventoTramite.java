@@ -17,6 +17,8 @@ public class EventoTramite {
     private String motivo;
     // private coleccion archivos (? CUANDO ARME LA BD VEO
     @ManyToOne
+    private Tramite tramite;
+    @ManyToOne
     private EventoTramite evento;
 
     public EventoTramite(){}
@@ -34,4 +36,11 @@ public class EventoTramite {
     public TipoEvento getTipo(){return this.tipo;}
     public String getMotivo(){return this.motivo;}
 
+    public Tramite getTramite() {
+        return tramite;
+    }
+
+    public void setTramite(Tramite tramite) {
+        this.tramite = tramite;
+    }
 }

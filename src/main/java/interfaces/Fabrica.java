@@ -17,7 +17,7 @@ public class Fabrica {
         }
         return instancia;
     }
-
+    
     public IControladorAsignarTramite getControladorAsignarTramite(){return new ControladorAsignarTramite();}
     public IControladorTramite getControladorTramite() {
         return new ControladorTramite();

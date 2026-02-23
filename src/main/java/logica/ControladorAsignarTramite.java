@@ -6,7 +6,6 @@ import interfaces.IControladorAsignarTramite;
 import jakarta.persistence.EntityManager;
 import persistencia.Conexion;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
