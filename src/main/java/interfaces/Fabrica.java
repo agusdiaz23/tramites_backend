@@ -1,9 +1,6 @@
 package interfaces;
 
-import logica.ControladorAsignarTramite;
-import logica.ControladorPerfil;
-import logica.ControladorTramite;
-import logica.ControladorUsuario;
+import logica.*;
 
 public class Fabrica {
 
@@ -18,6 +15,7 @@ public class Fabrica {
         return instancia;
     }
 
+    public IControladorEventoTramite getControladorEventoTramite(){return new ControladorEventoTramite();}
     public IControladorAsignarTramite getControladorAsignarTramite(){return new ControladorAsignarTramite();}
     public IControladorTramite getControladorTramite() {
         return new ControladorTramite();

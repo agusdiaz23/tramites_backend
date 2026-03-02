@@ -2,6 +2,7 @@ package logica;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,8 @@ public class Tramite {
     private TipoTramite tipo;
     @Enumerated(EnumType.STRING)
     private EstadoTramite estado;
+    @Enumerated(EnumType.STRING)
+    private List<TipoEvento> eventosDisponibles = new ArrayList<>();
 
     @ManyToOne
     private PerfilCiudadano ciudadano;
@@ -30,18 +33,28 @@ public class Tramite {
     //private AsignaTramite asignaTramite;
     @OneToOne(cascade = CascadeType.ALL)
     private Autorizacion autorizacion;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<EventoTramite> eventosTramites = new ArrayList<>();
+    //@OneToMany(cascade = CascadeType.ALL)
+    //private List<EventoTramite> eventosTramites = new ArrayList<>();
 
     public Tramite() {}
 
     public Tramite(LocalDate fechaInicio, LocalDate fechaVencimiento, LocalDate fechaFinalizado,
-                   TipoTramite tipo, EstadoTramite estado) {
+                   TipoTramite tipo, EstadoTramite estado, List<TipoEvento> eventosDisponibles) {
         this.fechaInicio = fechaInicio;
         this.fechaVencimiento = fechaVencimiento;
         this.fechaFinalizado = fechaFinalizado;
         this.tipo = tipo;
         this.estado = estado;
+        this.eventosDisponibles = eventosDisponibles;
+    }
+
+    public Tramite(LocalDate fechaInicio, LocalDate fechaVencimiento, LocalDate fechaFinalizado, TipoTramite tipo, EstadoTramite estado) {
+        this.fechaInicio = fechaInicio;
+        this.fechaVencimiento = fechaVencimiento;
+        this.fechaFinalizado = fechaFinalizado;
+        this.tipo = tipo;
+        this.estado = estado;
+        actualizarEventosDisponibles();
     }
 
     public void setId(int id) {
@@ -59,10 +72,9 @@ public class Tramite {
     public void setTipo(TipoTramite tipo) {
         this.tipo = tipo;
     }
-    public void setEstado(EstadoTramite estado) {
-        this.estado = estado;
-    }
+    public void setEstado(EstadoTramite estado) {this.estado = estado;}
     public void setPerfilCiudadano(PerfilCiudadano ciudadano){this.ciudadano=ciudadano;}
+    public void setEventosDisponibles(List<TipoEvento> tipoEventos){this.eventosDisponibles = tipoEventos;}
 
     public int getId() {
         return id;
@@ -83,12 +95,47 @@ public class Tramite {
         return estado;
     }
     public PerfilCiudadano getPerfilCiudadano(){ return ciudadano;}
+    public List<TipoEvento> getEventosDisponibles(){return eventosDisponibles;}
 
-   /* public AsignaTramite getAsignaTramite() {
-        return asignaTramite;
+    public void actualizarEstadoTramite(TipoEvento tipoEvento){
+
+        if(tipoEvento == TipoEvento.CANCELADO){
+            estado = EstadoTramite.CANCELADO;
+        }else if(tipoEvento == TipoEvento.FINALIZADO){
+            estado = EstadoTramite.COMPLETADO;
+        }else if(tipoEvento == TipoEvento.DEVOLUCION){
+            estado = EstadoTramite.DEVUELTO;
+        }else if(tipoEvento == TipoEvento.OBSERVACION) {
+            this.estado = EstadoTramite.OBSERVADO;
+        }else if(tipoEvento == TipoEvento.RESPUESTA){
+            estado = EstadoTramite.EN_REVISION;
+        }
+
     }
 
-    public void setAsignaTramite(AsignaTramite asignaTramite) {
-        this.asignaTramite = asignaTramite;
-    }*/
+    public void actualizarEventosDisponibles() {
+        List<TipoEvento> eventosDisponibles = new ArrayList<>();
+
+        if (estado != EstadoTramite.CANCELADO && estado != EstadoTramite.COMPLETADO) {
+            if (estado == EstadoTramite.EN_ESPERA) {
+                eventosDisponibles = Arrays.asList(TipoEvento.DEVOLUCION,
+                        TipoEvento.OBSERVACION,
+                        TipoEvento.FINALIZADO,
+                        TipoEvento.CANCELADO);
+            }else if (estado == EstadoTramite.DEVUELTO) {
+                eventosDisponibles = Arrays.asList(TipoEvento.RESPUESTA);
+            }else if (estado == EstadoTramite.OBSERVADO) {
+                eventosDisponibles = Arrays.asList(TipoEvento.RESPUESTA,
+                        TipoEvento.CANCELADO);
+            }else if (estado == EstadoTramite.EN_REVISION) {
+                eventosDisponibles = Arrays.asList(TipoEvento.DEVOLUCION,
+                        TipoEvento.OBSERVACION,
+                        TipoEvento.FINALIZADO,
+                        TipoEvento.CANCELADO);
+            }
+        }
+        this.eventosDisponibles = eventosDisponibles;
+    }
+
+
 }

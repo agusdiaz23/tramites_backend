@@ -18,15 +18,8 @@ public class ManejadorPerfil {
     }
 
 
-    public Perfil traerPerfil(int id){
+    public Perfil traerPerfil(int id, EntityManager em){
 
-        EntityManager em = Conexion.getInstancia().getEntityManager();
-        Perfil perfil;
-
-        em.getTransaction().begin();
-        perfil = em.find(Perfil.class, id);
-        em.close();
-
-        return perfil;
+        return em.find(Perfil.class, id);
     }
 }

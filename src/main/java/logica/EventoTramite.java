@@ -1,6 +1,8 @@
 package logica;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
+
 import datatypes.*;
 import jakarta.persistence.*;
 
@@ -17,7 +19,11 @@ public class EventoTramite {
     private String motivo;
     // private coleccion archivos (? CUANDO ARME LA BD VEO
     @ManyToOne
+    private Tramite tramite;
+    @ManyToOne
     private EventoTramite evento;
+    @ManyToOne
+    private PerfilFuncionario funcionario;
 
     public EventoTramite(){}
     public EventoTramite(LocalDate fecha, TipoEvento tipo, String motivo){
@@ -34,4 +40,18 @@ public class EventoTramite {
     public TipoEvento getTipo(){return this.tipo;}
     public String getMotivo(){return this.motivo;}
 
+    public Tramite getTramite() {
+        return tramite;
+    }
+    public void setTramite(Tramite tramite) {
+        this.tramite = tramite;
+    }
+
+    public PerfilFuncionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(PerfilFuncionario funcionario) {
+        this.funcionario = funcionario;
+    }
 }
