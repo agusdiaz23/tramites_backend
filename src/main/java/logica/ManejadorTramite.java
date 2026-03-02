@@ -16,15 +16,8 @@ public class ManejadorTramite{
         return instancia;
     }
 
-    public Tramite buscarTramite(int id){
-        EntityManager em = Conexion.getInstancia().getEntityManager();
-        Tramite tramite;
-
-        em.getTransaction().begin();
-        tramite = em.find(Tramite.class, id);
-        em.close();
-
-        return tramite;
+    public Tramite buscarTramite(int id, EntityManager em){
+        return em.find(Tramite.class, id);
     }
 
 

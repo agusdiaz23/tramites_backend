@@ -17,11 +17,13 @@ public class ControladorEventoTramite implements IControladorEventoTramite {
 
     public void nuevoEvento(DtTramite dtTramite, DtPerfil dtPerfil,
                             DtEventoTramite dtNuevoEvento){
-        Tramite tramite = manejadorTramite.buscarTramite(dtTramite.getId());
+
+        EntityManager em = Conexion.getInstancia().getEntityManager();
+
+        Tramite tramite = manejadorTramite.buscarTramite(dtTramite.getId(), em);
 
         if(tramite.getEventosDisponibles().contains(dtNuevoEvento.getTipo())){
         //si la coleccion de eventos disponibles del tramite contiene el tipo de nuevoEvento
-            EntityManager em = Conexion.getInstancia().getEntityManager();
             em.getTransaction().begin();
 
             EventoTramite eventoTramite = new EventoTramite(dtNuevoEvento.getFecha(),
@@ -29,13 +31,13 @@ public class ControladorEventoTramite implements IControladorEventoTramite {
 
             tramite.actualizarEstadoTramite(dtNuevoEvento.getTipo());
             tramite.actualizarEventosDisponibles();
-            em.merge(tramite);
+            //em.merge(tramite);
 
             eventoTramite.setTramite(tramite);
 
             if(dtPerfil instanceof DtPerfilFuncionario){
                 PerfilFuncionario funcionario = (PerfilFuncionario) ManejadorPerfil.getInstancia().
-                        traerPerfil(dtPerfil.getId());
+                        traerPerfil(dtPerfil.getId(), em);
                 eventoTramite.setFuncionario(funcionario);
             }
 

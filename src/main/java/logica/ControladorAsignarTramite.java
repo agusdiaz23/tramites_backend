@@ -18,21 +18,22 @@ public class ControladorAsignarTramite implements IControladorAsignarTramite {
                                List<DtPerfilFuncionario> dtFuncAsignados){
         EntityManager em = Conexion.getInstancia().getEntityManager();
 
-        PerfilFuncionario funcAsigna = (PerfilFuncionario) manejadorPerfil.traerPerfil(dtFuncAsigna.getId());
+        PerfilFuncionario funcAsigna = (PerfilFuncionario) manejadorPerfil.traerPerfil(dtFuncAsigna.getId(), em);
 
-        Tramite tramite = manejadorTramite.buscarTramite(dtTramite.getId());
+        em.getTransaction().begin();
+
+        Tramite tramite = manejadorTramite.buscarTramite(dtTramite.getId(), em);
         List<PerfilFuncionario> funcAsignados = new ArrayList<>();
         AsignaTramite nuevoAsignaTramite = new AsignaTramite();
 
         for(DtPerfilFuncionario dtFuncAsignado:dtFuncAsignados){
-            funcAsignados.add((PerfilFuncionario) manejadorPerfil.traerPerfil(dtFuncAsignado.getId()));
+            funcAsignados.add((PerfilFuncionario) manejadorPerfil.traerPerfil(dtFuncAsignado.getId(), em));
         }
 
         nuevoAsignaTramite.setTramite(tramite);
         nuevoAsignaTramite.setFuncionariosAsignados(funcAsignados);
         nuevoAsignaTramite.setFuncionarioAsigna(funcAsigna);
 
-        em.getTransaction().begin();
         em.persist(nuevoAsignaTramite);
         em.getTransaction().commit();
         em.close();

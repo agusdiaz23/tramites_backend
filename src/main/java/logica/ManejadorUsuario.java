@@ -31,16 +31,8 @@ public class ManejadorUsuario {
         return existe;
     }
 
-    public Usuario traerUsuario(String ci){
-        EntityManager em;
-        Usuario user;
-
-        em = Conexion.getInstancia().getEntityManager();
-        em.getTransaction().begin();
-
-        user = em.find(Usuario.class, ci);
-        em.close();
-        return user;
+    public Usuario traerUsuario(String ci, EntityManager em){
+        return em.find(Usuario.class, ci);
     }
 
     public void registrarUsuario(DtUsuario usuario){

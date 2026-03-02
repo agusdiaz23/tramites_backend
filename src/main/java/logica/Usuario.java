@@ -14,6 +14,8 @@ public class Usuario {
     private String nombre;
     @Column
     private String apellido;
+    @Column
+    private String email;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Perfil> perfiles = new ArrayList<>();
@@ -37,6 +39,7 @@ public class Usuario {
     public void setPerfiles(List<Perfil> perfiles) {
         this.perfiles = perfiles;
     }
+    public void setEmail(String email) {this.email = email;}
 
     public String getCi(){
         return this.ci;
@@ -48,6 +51,7 @@ public class Usuario {
         return this.apellido;
     }
     public List<Perfil> getPerfiles() { return perfiles;}
+    public String getEmail() {return email;}
 
     void agregarPerfil(Perfil perfil) {
         EntityManager em = Conexion.getInstancia().getEntityManager();
