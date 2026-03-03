@@ -1,6 +1,7 @@
 package logica;
 
 import datatypes.DtUsuario;
+import excepciones.YaExisteUsuarioExcepcion;
 import interfaces.IControladorUsuario;
 
 public class ControladorUsuario implements IControladorUsuario {
@@ -13,7 +14,7 @@ public class ControladorUsuario implements IControladorUsuario {
             System.out.print("no existe usuario, voy a crearlo");
             manejadorUsuario.registrarUsuario(usuario);
         }else{
-            //excepcion existe usuario
+             throw new  YaExisteUsuarioExcepcion("ya existe un usuario con esa cedula");
         }
     }
 }

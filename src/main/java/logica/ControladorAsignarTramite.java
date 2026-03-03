@@ -2,6 +2,7 @@ package logica;
 
 import datatypes.DtPerfilFuncionario;
 import datatypes.DtTramite;
+import excepciones.YaExisteUsuarioExcepcion;
 import interfaces.IControladorAsignarTramite;
 import jakarta.persistence.EntityManager;
 import persistencia.Conexion;

@@ -16,15 +16,20 @@ public class Usuario {
     private String apellido;
     @Column
     private String email;
+    @Column
+    private String contrasena;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Perfil> perfiles = new ArrayList<>();
 
     public Usuario(){}
-    public Usuario(String ci, String nombre, String apellido, List<Perfil> perfiles){
+    public Usuario(String ci, String nombre, String apellido, String email,
+                   String contrasena, List<Perfil> perfiles){
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.email = email;
+        this.contrasena = contrasena;
         this.perfiles = perfiles;
     }
     public void setCi(String ci){
@@ -53,6 +58,14 @@ public class Usuario {
     public List<Perfil> getPerfiles() { return perfiles;}
     public String getEmail() {return email;}
 
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
     void agregarPerfil(Perfil perfil) {
         EntityManager em = Conexion.getInstancia().getEntityManager();
 
@@ -63,8 +76,5 @@ public class Usuario {
         em.getTransaction().commit();
         em.close();
     }
-    //void getPerfilCiudadano
-    //void getPerfilFuncionario
-
 
 }

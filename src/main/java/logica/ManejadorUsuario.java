@@ -38,10 +38,8 @@ public class ManejadorUsuario {
     public void registrarUsuario(DtUsuario usuario){
         EntityManager em = Conexion.getInstancia().getEntityManager();
 
-        Usuario nuevoUsuario = new Usuario();
-        nuevoUsuario.setCi(usuario.getCi());
-        nuevoUsuario.setNombre(usuario.getNombre());
-        nuevoUsuario.setApellido(usuario.getApellido());
+        Usuario nuevoUsuario = new Usuario(usuario.getCi(), usuario.getNombre(), usuario.getApellido(),
+                usuario.getEmail(), usuario.getContrasena(), null);
 
         System.out.print("   Voy a crear el usuario: " + usuario.getCi() + usuario.getNombre() + usuario.getApellido());
 

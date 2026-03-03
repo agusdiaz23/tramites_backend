@@ -4,14 +4,16 @@ public class DtUsuario {
     private String ci;
     private String nombre;
     private String apellido;
-    private int idPerfilCiudadano;
-    private int idPerfilFuncionario;
+    private String email;
+    private String contrasena;
 
     public DtUsuario(){}
-    public DtUsuario(String ci, String nombre, String apellido){
+    public DtUsuario(String ci, String nombre, String apellido, String email, String contrasena){
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.email = email;
+        this.contrasena = contrasena;
     }
 
     public String getCi() {
@@ -32,4 +34,8 @@ public class DtUsuario {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+    public String getEmail() {return email;}
+    public void setEmail(String email) {this.email = email;}
+    public String getContrasena() {return contrasena;}
+    public void setContrasena(String contrasena) {this.contrasena = contrasena;}
 }

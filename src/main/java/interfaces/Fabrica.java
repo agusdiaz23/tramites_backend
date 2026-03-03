@@ -20,10 +20,11 @@ public class Fabrica {
     public IControladorTramite getControladorTramite() {
         return new ControladorTramite();
     }
-    public IControladorUsuario getControladorAltaUsuario() {
+    public IControladorUsuario getControladorUsuario() {
         return new ControladorUsuario();
     }
     public IControladorPerfil getControladorAltaFuncionario() {
         return new ControladorPerfil();
     }
+
 }
