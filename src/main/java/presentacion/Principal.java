@@ -11,12 +11,12 @@ import javax.swing.UIManager;
 import javax.swing.SwingUtilities;
 
 import interfaces.Fabrica;
-import interfaces.IControladorAltaLector;
+import interfaces.IControladorUsuario;
 
 public class Principal {
     private JFrame frame;
 
-    private ModificarZonaLectorFrame modificarZonaInternalFrame;
+    private AltaUsuarioInternalFrame altaUsuarioInternalFrame;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
@@ -79,18 +79,18 @@ public class Principal {
          */
 
         Fabrica fabrica = Fabrica.getInstancia();
-        IControladorAltaLector controladorAlta = fabrica.getIControladorAltaLector();
+        IControladorUsuario controladorUsuario = fabrica.getControladorUsuario();
 
         Dimension desktopSize = frame.getSize();
 
         // === Alta Lector ===
-        agregarLectorInternalFrame = new AltaLector(controladorAlta, this);
-        agregarLectorInternalFrame.setLocation(
-                (desktopSize.width - agregarLectorInternalFrame.getSize().width) / 2,
-                (desktopSize.height - agregarLectorInternalFrame.getSize().height) / 2
+        altaUsuarioInternalFrame = new AltaUsuarioInternalFrame(controladorUsuario, this);
+        altaUsuarioInternalFrame.setLocation(
+                (desktopSize.width - altaUsuarioInternalFrame.getSize().width) / 2,
+                (desktopSize.height - altaUsuarioInternalFrame.getSize().height) / 2
         );
-        agregarLectorInternalFrame.setVisible(false);
-        frame.getContentPane().add(agregarLectorInternalFrame);
+        altaUsuarioInternalFrame.setVisible(false);
+        frame.getContentPane().add(altaUsuarioInternalFrame);
 
 
     }
@@ -117,10 +117,10 @@ public class Principal {
         menuBar.add(mnAñadir);
 
         JMenuItem mntmAgregarLector = new JMenuItem("Agregar lector");
-        mntmAgregarLector.addActionListener(e -> agregarLectorInternalFrame.setVisible(true));
+        mntmAgregarLector.addActionListener(e -> altaUsuarioInternalFrame.setVisible(true));
         mnAñadir.add(mntmAgregarLector);
 
-        JMenuItem mntmAgregarBibliotecario = new JMenuItem("Agregar bibliotecario");
+       /* JMenuItem mntmAgregarBibliotecario = new JMenuItem("Agregar bibliotecario");
         mntmAgregarBibliotecario.addActionListener(e -> agregarBibliotecarioInternalFrame.setVisible(true));
         mnAñadir.add(mntmAgregarBibliotecario);
 
@@ -187,14 +187,7 @@ public class Principal {
         JMenuItem mntmListarPrestamosComunes = new JMenuItem("Listar préstamos comunes");
         mntmListarPrestamosComunes.addActionListener(e -> listarPrestamosComunesInternalFrame.setVisible(true));
         mnBuscar.add(mntmListarPrestamosComunes);
+*/
     }
 
-    public void actualizarInternalFrames() {
-        altaPrestamoInternalFrame.cargarDatos();
-        modificarZonaInternalFrame.cargarNombresLectores();
-        estadoLectorInternalFrame.cargarNombresLectores();
-        listarPrestamosBibliotecarioInternalFrame.cargarDatos();
-        consultaDonacionYFechaInternalFrame.limpiarFormulario();
-        modificarTodoPrestamoInternalFrame.cargarDatos();
-    }
 }

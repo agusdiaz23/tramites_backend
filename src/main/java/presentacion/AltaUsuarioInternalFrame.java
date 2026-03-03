@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class AltaUsuarioFrame extends JInternalFrame {
+public class AltaUsuarioInternalFrame extends JInternalFrame {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,62 +24,56 @@ public class AltaUsuarioFrame extends JInternalFrame {
     private JTextField textFieldEmail;
     private JTextField textFieldContrasena;
 
-    public AltaUsuarioFrame(IControladorUsuario iconUsuario, Principal principal) {
+    public AltaUsuarioInternalFrame(IControladorUsuario iconUsuario, Principal principal) {
         this.iconUsuario = iconUsuario;
         this.principal = principal;
 
         setTitle("Registrar Usuario");
-        setBounds(100, 100, 450, 220);
+        setBounds(100, 100, 450, 250);
         setResizable(false);
         setClosable(true);
         setIconifiable(false);
         setMaximizable(false);
         getContentPane().setLayout(null);
-
         JLabel lblCI = new JLabel("CI:");
-        lblCI.setBounds(10, 11, 70, 14);
+        lblCI.setBounds(10, 20, 80, 20);
         getContentPane().add(lblCI);
 
         textFieldCI = new JTextField();
-        textFieldCI.setBounds(90, 8, 260, 20);
+        textFieldCI.setBounds(100, 20, 250, 20);
         getContentPane().add(textFieldCI);
-        textFieldCI.setColumns(10);
 
         JLabel lblNombre = new JLabel("Nombre:");
-        lblNombre.setBounds(10, 11, 70, 14);
+        lblNombre.setBounds(10, 55, 80, 20);
         getContentPane().add(lblNombre);
 
         textFieldNombre = new JTextField();
-        textFieldNombre.setBounds(90, 8, 260, 20);
+        textFieldNombre.setBounds(100, 55, 250, 20);
         getContentPane().add(textFieldNombre);
-        textFieldNombre.setColumns(10);
 
         JLabel lblApellido = new JLabel("Apellido:");
-        lblApellido.setBounds(10, 11, 70, 14);
+        lblApellido.setBounds(10, 90, 80, 20);
         getContentPane().add(lblApellido);
 
         textFieldApellido = new JTextField();
-        textFieldApellido.setBounds(90, 8, 260, 20);
+        textFieldApellido.setBounds(100, 90, 250, 20);
         getContentPane().add(textFieldApellido);
-        textFieldApellido.setColumns(10);
 
         JLabel lblEmail = new JLabel("Email:");
-        lblEmail.setBounds(10, 42, 70, 14);
+        lblEmail.setBounds(10, 125, 80, 20);
         getContentPane().add(lblEmail);
 
         textFieldEmail = new JTextField();
-        textFieldEmail.setBounds(90, 39, 260, 20);
+        textFieldEmail.setBounds(100, 125, 250, 20);
         getContentPane().add(textFieldEmail);
-        textFieldEmail.setColumns(10);
 
         JLabel lblContrasena = new JLabel("Contraseña:");
-        lblContrasena.setBounds(10, 73, 70, 14);
+        lblContrasena.setBounds(10, 160, 80, 20);
         getContentPane().add(lblContrasena);
 
         textFieldContrasena = new JTextField();
-        textFieldContrasena.setBounds(90, 70, 260, 20);
+        textFieldContrasena.setBounds(100, 160, 250, 20);
         getContentPane().add(textFieldContrasena);
-        textFieldContrasena.setColumns(10);
 
         JButton btnAceptar = new JButton("Aceptar");
         btnAceptar.addActionListener(new ActionListener() {
@@ -87,7 +81,7 @@ public class AltaUsuarioFrame extends JInternalFrame {
                 altaUsuarioAceptarActionPerformed(e);
             }
         });
-        btnAceptar.setBounds(90, 110, 89, 23);
+        btnAceptar.setBounds(90, 180, 89, 23);
         getContentPane().add(btnAceptar);
 
         JButton btnCancelar = new JButton("Cancelar");
@@ -96,7 +90,7 @@ public class AltaUsuarioFrame extends JInternalFrame {
                 altaUsuarioCancelarActionPerformed(e);
             }
         });
-        btnCancelar.setBounds(261, 110, 89, 23);
+        btnCancelar.setBounds(261, 180, 89, 23);
         getContentPane().add(btnCancelar);
     }
 
@@ -119,7 +113,6 @@ public class AltaUsuarioFrame extends JInternalFrame {
 
             limpiarFormulario();
             setVisible(false);
-            principal.actualizarInternalFrames();
         }
     }
 
