@@ -1,5 +1,7 @@
 package logica;
 
+import datatypes.DtPerfil;
+import datatypes.DtPerfilCiudadano;
 import jakarta.persistence.*;
 
 @Entity
@@ -19,4 +21,5 @@ public abstract class Perfil {
     public void setId(int id){this.id=id;}
     public Usuario getUsuario(){return this.usuario;}
     public void setUsuario(Usuario usuario){this.usuario = usuario;}
+
 }

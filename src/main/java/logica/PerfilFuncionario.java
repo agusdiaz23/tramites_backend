@@ -22,4 +22,8 @@ public class PerfilFuncionario extends Perfil{
     }
     public Cargo getCargo(){return this.cargo;}
     public void setCargo(Cargo cargo){this.cargo = cargo;}
+
+    public DtPerfilFuncionario obtenerDt(){
+        return new DtPerfilFuncionario(getId(),cargo, null);
+    }
 }

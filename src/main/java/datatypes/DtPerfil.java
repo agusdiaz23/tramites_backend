@@ -20,4 +20,5 @@ public abstract class DtPerfil {
     }
     public void setId(int id){this.id = id;}
     public int getId(){return this.id;};
+
 }

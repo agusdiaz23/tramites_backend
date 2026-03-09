@@ -4,5 +4,5 @@ import datatypes.DtPerfilCiudadano;
 import datatypes.DtTramite;
 
 public interface IControladorTramite {
-    public void nuevoTramite(DtPerfilCiudadano ciudadano, DtTramite tramite);
+    public void nuevoTramite(int idPerfilCiudadano, DtTramite tramite);
 }

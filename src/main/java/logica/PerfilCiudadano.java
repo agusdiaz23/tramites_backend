@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import datatypes.DtPerfil;
+import datatypes.DtPerfilCiudadano;
 import datatypes.DtTramite;
 import datatypes.EstadoCivil;
 import jakarta.persistence.*;
@@ -26,7 +28,7 @@ public class PerfilCiudadano extends Perfil {
 
     public PerfilCiudadano(){}
     public PerfilCiudadano(String direccion, LocalDate fecha, EstadoCivil estado){
-        this.direccion= direccion;
+        this.direccion = direccion;
         this.fechaNacimiento = fecha;
         this.estadoCivil = estado;
     }
@@ -37,6 +39,11 @@ public class PerfilCiudadano extends Perfil {
     public void setDireccion(String direccion){this.direccion=direccion;}
     public void setFechaNacimiento(LocalDate fecha){this.fechaNacimiento=fecha;}
     public void setEstadoCivil(EstadoCivil estado){this.estadoCivil = estado;}
+    public DtPerfilCiudadano obtenerDt(){
+        System.out.println("OBTUVE ID DEL OBJETO CIUDADANO: " + this.getId());
+        return new DtPerfilCiudadano(getId(), null, direccion, fechaNacimiento, estadoCivil);
+    }
+
 //
 //    public void agregarTramite(Tramite tramite) {
 //

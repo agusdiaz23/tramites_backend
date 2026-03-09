@@ -7,7 +7,6 @@ import java.util.Date;
 
 public class DtPerfilCiudadano extends DtPerfil{
 
-    private int id;
     private String direccion;
     private LocalDate fechaNacimiento;
     private EstadoCivil estadoCivil;
@@ -19,8 +18,7 @@ public class DtPerfilCiudadano extends DtPerfil{
         this.fechaNacimiento = fechaNacimiento;
         this.estadoCivil = estadoCivil;
     }
-    public void setId(int id){this.id = id;}
-    public int getId(){return this.id;}
+
     public String getDireccion() {
         return direccion;
     }
@@ -39,4 +37,5 @@ public class DtPerfilCiudadano extends DtPerfil{
     public void setEstadoCivil(EstadoCivil estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
+
 }

@@ -8,8 +8,13 @@ import interfaces.IControladorPerfil;
 import jakarta.persistence.EntityManager;
 import persistencia.Conexion;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ControladorPerfil implements IControladorPerfil {
     private static ManejadorUsuario manejadorUsuario = ManejadorUsuario.getInstancia();
+    private static ManejadorPerfil manejadorPerfil = ManejadorPerfil.getInstancia();
+
 
     public void AltaPerfil(DtUsuario usuario, DtPerfil dtPerfil){
         //pre: El usuario existe, sino no llegas hasta aca.
@@ -45,5 +50,17 @@ public class ControladorPerfil implements IControladorPerfil {
             //KABUM
         }
         em.close();
+    }
+
+    public List<DtPerfilCiudadano> verPerfilesCiudadano(){
+        List<PerfilCiudadano> perfilesCiudadano = manejadorPerfil.traerPerfilesCiudadanos();
+        List<DtPerfilCiudadano> dtPerfilesCiudadano = new ArrayList<>();
+
+        for(PerfilCiudadano p : perfilesCiudadano){
+            dtPerfilesCiudadano.add(p.obtenerDt());
+            System.out.println("A VER QUE ME LLEGÓ: " + p.obtenerDt().getId());
+        }
+
+        return dtPerfilesCiudadano;
     }
 }

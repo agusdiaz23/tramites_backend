@@ -11,6 +11,7 @@ import javax.swing.UIManager;
 import javax.swing.SwingUtilities;
 
 import interfaces.Fabrica;
+import interfaces.IControladorTramite;
 import interfaces.IControladorUsuario;
 import interfaces.IControladorPerfil;
 
@@ -19,6 +20,7 @@ public class Principal {
 
     private AltaUsuarioInternalFrame altaUsuarioInternalFrame;
     private AltaPerfilInternalFrame altaPerfilInternalFrame;
+    private IniciarTramiteInternalFrame iniciarTramiteInternalFrame;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
@@ -83,6 +85,7 @@ public class Principal {
         Fabrica fabrica = Fabrica.getInstancia();
         IControladorUsuario controladorUsuario = fabrica.getControladorUsuario();
         IControladorPerfil controladorPerfil = fabrica.getControladorPerfil();
+        IControladorTramite controladorTramite = fabrica.getControladorTramite();
 
         Dimension desktopSize = frame.getSize();
 
@@ -103,11 +106,20 @@ public class Principal {
         altaPerfilInternalFrame.setVisible(false);
         frame.getContentPane().add(altaPerfilInternalFrame);
 
+
+        iniciarTramiteInternalFrame = new IniciarTramiteInternalFrame(controladorTramite, controladorPerfil, this);
+        iniciarTramiteInternalFrame.setLocation(
+                (desktopSize.width - iniciarTramiteInternalFrame.getSize().width) / 2,
+                (desktopSize.height - iniciarTramiteInternalFrame.getSize().height) / 2
+        );
+        iniciarTramiteInternalFrame.setVisible(false);
+        frame.getContentPane().add(iniciarTramiteInternalFrame);
+
     }
 
     private void initialize() {
         frame = new JFrame();
-        frame.setTitle("Sistema de Biblioteca");
+        frame.setTitle("Sistema de Tramites");
         frame.setBounds(200, 200, 900, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
@@ -133,6 +145,10 @@ public class Principal {
         JMenuItem mntmNuevoPerfil = new JMenuItem("Nuevo Perfil");
         mntmNuevoPerfil.addActionListener(e-> altaPerfilInternalFrame.setVisible(true));
         mnAñadir.add(mntmNuevoPerfil);
+
+        JMenuItem mntmIniciarTramite = new JMenuItem("Iniciar Tramite");
+        mntmIniciarTramite.addActionListener(e-> iniciarTramiteInternalFrame.setVisible(true));
+        mnAñadir.add(mntmIniciarTramite);
 
        /* JMenuItem mntmAgregarBibliotecario = new JMenuItem("Agregar bibliotecario");
         mntmAgregarBibliotecario.addActionListener(e -> agregarBibliotecarioInternalFrame.setVisible(true));
