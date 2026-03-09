@@ -4,6 +4,8 @@ import datatypes.DtUsuario;
 import jakarta.persistence.EntityManager;
 import persistencia.Conexion;
 
+import java.util.List;
+
 public class ManejadorUsuario {
     private static ManejadorUsuario instancia = null;
 
@@ -39,7 +41,7 @@ public class ManejadorUsuario {
         EntityManager em = Conexion.getInstancia().getEntityManager();
 
         Usuario nuevoUsuario = new Usuario(usuario.getCi(), usuario.getNombre(), usuario.getApellido(),
-                usuario.getEmail(), usuario.getContrasena(), null);
+                usuario.getEmail(), usuario.getContrasena());
 
         System.out.print("   Voy a crear el usuario: " + usuario.getCi() + usuario.getNombre() + usuario.getApellido());
 
@@ -47,6 +49,12 @@ public class ManejadorUsuario {
         em.persist(nuevoUsuario);
         em.getTransaction().commit();
         em.close();
+    }
+
+    public List<Usuario> verUsuarios(){
+        EntityManager em = Conexion.getInstancia().getEntityManager();
+
+        return em.createQuery("SELECT u FROM Usuario u", Usuario.class).getResultList();
     }
 
 }

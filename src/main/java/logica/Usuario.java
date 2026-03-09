@@ -1,6 +1,8 @@
 package logica;
 
 import java.util.*;
+
+import datatypes.DtUsuario;
 import jakarta.persistence.*;
 import persistencia.Conexion;
 
@@ -19,19 +21,26 @@ public class Usuario {
     @Column
     private String contrasena;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Perfil> perfiles = new ArrayList<>();
-
+*/
     public Usuario(){}
     public Usuario(String ci, String nombre, String apellido, String email,
-                   String contrasena, List<Perfil> perfiles){
+                   String contrasena /*, List<Perfil> perfiles*/){
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.contrasena = contrasena;
-        this.perfiles = perfiles;
+     //   this.perfiles = perfiles;
     }
+
+    public DtUsuario convertirEnDT(){
+        DtUsuario dtUsuario = new DtUsuario(ci, nombre, apellido, email);
+
+        return dtUsuario;
+    }
+
     public void setCi(String ci){
         this.ci = ci;
     }
@@ -41,9 +50,9 @@ public class Usuario {
     public void setApellido(String apellido){
         this.apellido = apellido;
     }
-    public void setPerfiles(List<Perfil> perfiles) {
+ /*   public void setPerfiles(List<Perfil> perfiles) {
         this.perfiles = perfiles;
-    }
+    }*/
     public void setEmail(String email) {this.email = email;}
 
     public String getCi(){
@@ -55,7 +64,7 @@ public class Usuario {
     public String getApellido(){
         return this.apellido;
     }
-    public List<Perfil> getPerfiles() { return perfiles;}
+   /* public List<Perfil> getPerfiles() { return perfiles;} */
     public String getEmail() {return email;}
 
     public String getContrasena() {
@@ -66,7 +75,7 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    void agregarPerfil(Perfil perfil) {
+    /*void agregarPerfil(Perfil perfil) {
         EntityManager em = Conexion.getInstancia().getEntityManager();
 
         em.getTransaction().begin();
@@ -75,6 +84,6 @@ public class Usuario {
         em.persist(perfil);
         em.getTransaction().commit();
         em.close();
-    }
+    }*/
 
 }

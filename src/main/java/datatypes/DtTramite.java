@@ -21,6 +21,16 @@ public class DtTramite {
 
     public DtTramite() {}
 
+    public DtTramite(TipoTramite tipo) {
+        //GENERA FECHA AUTOMATICAMENTE Y ESTADO EN_ESPERA POR DEFAULT.
+        this.fechaInicio = LocalDate.now();
+        this.fechaVencimiento = fechaInicio.plusDays(30);
+        this.fechaFinalizado = null;
+        this.tipo = tipo;
+        this.estado = EstadoTramite.EN_ESPERA;
+    }
+
+
     public DtTramite(LocalDate fechaInicio, LocalDate fechaVencimiento, LocalDate fechaFinalizado,
                      TipoTramite tipo, EstadoTramite estado) {
         this.fechaInicio = fechaInicio;

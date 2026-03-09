@@ -16,24 +16,34 @@ public class ControladorPerfil implements IControladorPerfil {
         EntityManager em = Conexion.getInstancia().getEntityManager();
         Usuario objetoUsuario = manejadorUsuario.traerUsuario(usuario.getCi(), em);
 
+        System.out.println("llegue a alta perfil, usuario es: " + objetoUsuario.getCi());
+
+
         if(dtPerfil instanceof DtPerfilFuncionario){
             //Hago polimorfismo y creo instancia PerfilFuncionario
+            em.getTransaction().begin();
             DtPerfilFuncionario dtPerfilFuncionario = (DtPerfilFuncionario) dtPerfil;
             PerfilFuncionario perfil = new PerfilFuncionario(dtPerfilFuncionario.getCargo());
             perfil.setUsuario(objetoUsuario);
+            em.persist(perfil);
+            em.getTransaction().commit();
             //objetoUsuario.agregarPerfil(perfil);
         }
         else if(dtPerfil instanceof DtPerfilCiudadano){
             //Hago polimorfismo y creo instancia PerfilCiudadano
+
+            em.getTransaction().begin();
             DtPerfilCiudadano dtPerfilCiudadano = (DtPerfilCiudadano) dtPerfil;
             PerfilCiudadano perfil = new PerfilCiudadano(dtPerfilCiudadano.getDireccion(),
                     dtPerfilCiudadano.getFechaNacimiento(), dtPerfilCiudadano.getEstadoCivil());
             perfil.setUsuario(objetoUsuario);
+            em.persist(perfil);
             //objetoUsuario.agregarPerfil(perfil);
             System.out.println("todo ok");
+            em.getTransaction().commit();
         }else{
             //KABUM
         }
-
+        em.close();
     }
 }

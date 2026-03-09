@@ -8,6 +8,14 @@ public class DtUsuario {
     private String contrasena;
 
     public DtUsuario(){}
+
+    public DtUsuario(String ci, String nombre, String apellido, String email){
+        this.ci = ci;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+    }
+
     public DtUsuario(String ci, String nombre, String apellido, String email, String contrasena){
         this.ci = ci;
         this.nombre = nombre;

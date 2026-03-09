@@ -12,11 +12,13 @@ import javax.swing.SwingUtilities;
 
 import interfaces.Fabrica;
 import interfaces.IControladorUsuario;
+import interfaces.IControladorPerfil;
 
 public class Principal {
     private JFrame frame;
 
     private AltaUsuarioInternalFrame altaUsuarioInternalFrame;
+    private AltaPerfilInternalFrame altaPerfilInternalFrame;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
@@ -80,10 +82,11 @@ public class Principal {
 
         Fabrica fabrica = Fabrica.getInstancia();
         IControladorUsuario controladorUsuario = fabrica.getControladorUsuario();
+        IControladorPerfil controladorPerfil = fabrica.getControladorPerfil();
 
         Dimension desktopSize = frame.getSize();
 
-        // === Alta Lector ===
+        // === Alta Usuario ===
         altaUsuarioInternalFrame = new AltaUsuarioInternalFrame(controladorUsuario, this);
         altaUsuarioInternalFrame.setLocation(
                 (desktopSize.width - altaUsuarioInternalFrame.getSize().width) / 2,
@@ -92,6 +95,13 @@ public class Principal {
         altaUsuarioInternalFrame.setVisible(false);
         frame.getContentPane().add(altaUsuarioInternalFrame);
 
+        altaPerfilInternalFrame = new AltaPerfilInternalFrame(controladorUsuario, controladorPerfil, this);
+        altaPerfilInternalFrame.setLocation(
+                (desktopSize.width - altaPerfilInternalFrame.getSize().width) / 2,
+                (desktopSize.height - altaPerfilInternalFrame.getSize().height) / 2
+        );
+        altaPerfilInternalFrame.setVisible(false);
+        frame.getContentPane().add(altaPerfilInternalFrame);
 
     }
 
@@ -116,9 +126,13 @@ public class Principal {
         mnAñadir.setMnemonic('A');
         menuBar.add(mnAñadir);
 
-        JMenuItem mntmAgregarLector = new JMenuItem("Agregar lector");
-        mntmAgregarLector.addActionListener(e -> altaUsuarioInternalFrame.setVisible(true));
-        mnAñadir.add(mntmAgregarLector);
+        JMenuItem mntmRegistrarUsuario = new JMenuItem("Registrar Usuario");
+        mntmRegistrarUsuario.addActionListener(e -> altaUsuarioInternalFrame.setVisible(true));
+        mnAñadir.add(mntmRegistrarUsuario);
+
+        JMenuItem mntmNuevoPerfil = new JMenuItem("Nuevo Perfil");
+        mntmNuevoPerfil.addActionListener(e-> altaPerfilInternalFrame.setVisible(true));
+        mnAñadir.add(mntmNuevoPerfil);
 
        /* JMenuItem mntmAgregarBibliotecario = new JMenuItem("Agregar bibliotecario");
         mntmAgregarBibliotecario.addActionListener(e -> agregarBibliotecarioInternalFrame.setVisible(true));

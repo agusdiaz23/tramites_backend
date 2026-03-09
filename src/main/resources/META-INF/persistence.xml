@@ -21,9 +21,9 @@
         <properties>
             <!-- JDBC configuration using jakarta.persistence -->
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://ep-rapid-pond-agt916qx.c-2.eu-central-1.pg.koyeb.app/koyebdb"/>
-            <property name="jakarta.persistence.jdbc.user" value="koyeb-adm"/>
-            <property name="jakarta.persistence.jdbc.password" value="npg_5gFv8TKCjbXU"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://ep-wispy-frost-acrwm2gs-pooler.sa-east-1.aws.neon.tech:5432/neondb?sslmode=require"/>
+            <property name="jakarta.persistence.jdbc.user" value="neondb_owner"/>
+            <property name="jakarta.persistence.jdbc.password" value="npg_TFlrkPv0SWZ2"/>
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>
