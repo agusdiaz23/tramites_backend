@@ -35,7 +35,7 @@ public class Usuario {
      //   this.perfiles = perfiles;
     }
 
-    public DtUsuario convertirEnDT(){
+    public DtUsuario obtenerDT(){
         DtUsuario dtUsuario = new DtUsuario(ci, nombre, apellido, email);
 
         return dtUsuario;

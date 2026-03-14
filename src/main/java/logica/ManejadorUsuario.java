@@ -6,6 +6,7 @@ import persistencia.Conexion;
 
 import java.util.List;
 
+
 public class ManejadorUsuario {
     private static ManejadorUsuario instancia = null;
 
@@ -49,6 +50,30 @@ public class ManejadorUsuario {
         em.persist(nuevoUsuario);
         em.getTransaction().commit();
         em.close();
+    }
+
+    public List<Perfil> traerPerfilesUsuario(Usuario u, EntityManager em){
+        return em.createQuery("SELECT p FROM Perfil p WHERE p.usuario = u", Perfil.class).getResultList();
+    }
+
+    public boolean tienePerfilFuncionario(Usuario u){
+        EntityManager em = Conexion.getInstancia().getEntityManager();
+
+        long resultados = (long) em.createQuery("SELECT COUNT(pf) " +
+                "FROM PerfilFuncionario pf " +
+                "WHERE pf.usuario = :usuario").setParameter("usuario", u).getSingleResult();
+
+        return resultados > 0;
+    }
+
+    public boolean tienePerfilCiudadano(Usuario u){
+        EntityManager em = Conexion.getInstancia().getEntityManager();
+
+        long resultados = (long) em.createQuery("SELECT COUNT(pc) " +
+                "FROM PerfilCiudadano pc " +
+                "WHERE pc.usuario = :usuario").setParameter("usuario", u).getSingleResult();
+
+        return resultados > 0;
     }
 
     public List<Usuario> verUsuarios(){

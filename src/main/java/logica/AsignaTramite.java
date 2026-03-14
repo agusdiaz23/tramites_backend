@@ -1,5 +1,6 @@
 package logica;
 
+import datatypes.EstadoAsignado;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -16,33 +17,49 @@ public class AsignaTramite {
     //@Temporal(TemporalType.TIMESTAMP)
     private LocalDate fechaAsignado;
 
-    @OneToOne
+    private LocalDate fechaDesasignado;
+
+    private EstadoAsignado estado;
+
+    @ManyToOne
     @JoinColumn(name = "func_asigna")
     private PerfilFuncionario funcionarioAsigna;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "func_asignado")
-    private List<PerfilFuncionario> funcionariosAsignados = new ArrayList<>();
+    private PerfilFuncionario funcionarioAsignado;
 
-    @OneToOne
+    @ManyToOne
     private Tramite tramite;
 
     public AsignaTramite(){
         this.fechaAsignado = LocalDate.now();
+        this.estado = EstadoAsignado.ACTIVO;
     }
     public AsignaTramite(LocalDate fecha){
         this.fechaAsignado = fecha;
+        this.estado = EstadoAsignado.ACTIVO;
     }
 
+    public LocalDate getFechaDesasignado() {return fechaDesasignado;}
+    public void setFechaDesasignado(LocalDate fechaDesasignado) {this.fechaDesasignado = fechaDesasignado;}
+    public EstadoAsignado getEstado() {return estado;}
+    public void setEstado(EstadoAsignado estado) {this.estado = estado;}
     public PerfilFuncionario getFuncionarioAsigna() {return funcionarioAsigna;}
     public void setFuncionarioAsigna(PerfilFuncionario funcionarioAsigna) {
         this.funcionarioAsigna = funcionarioAsigna;}
     public Tramite getTramite() {return tramite;}
     public void setTramite(Tramite tramite) {this.tramite = tramite;}
-    public List<PerfilFuncionario> getFuncionariosAsignados() {return funcionariosAsignados;}
-    public void setFuncionariosAsignados(List<PerfilFuncionario> funcionariosAsignados) {this.funcionariosAsignados = funcionariosAsignados;}
     public void setId(int id){ this.id= id;}
     public void setFechaAsignado(LocalDate fecha){ this.fechaAsignado = fecha;}
     public int getId(){return this.id;}
     public LocalDate getFechaAsignado(){return this.fechaAsignado;}
+
+    public PerfilFuncionario getFuncionarioAsignado() {
+        return funcionarioAsignado;
+    }
+
+    public void setFuncionarioAsignado(PerfilFuncionario funcionarioAsignado) {
+        this.funcionarioAsignado = funcionarioAsignado;
+    }
 }

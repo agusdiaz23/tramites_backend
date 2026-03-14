@@ -29,10 +29,17 @@ public class DtTramite {
         this.tipo = tipo;
         this.estado = EstadoTramite.EN_ESPERA;
     }
-
-
     public DtTramite(LocalDate fechaInicio, LocalDate fechaVencimiento, LocalDate fechaFinalizado,
                      TipoTramite tipo, EstadoTramite estado) {
+        this.fechaInicio = fechaInicio;
+        this.fechaVencimiento = fechaVencimiento;
+        this.fechaFinalizado = fechaFinalizado;
+        this.tipo = tipo;
+        this.estado = estado;
+    }
+    public DtTramite(int id, LocalDate fechaInicio, LocalDate fechaVencimiento, LocalDate fechaFinalizado,
+                     TipoTramite tipo, EstadoTramite estado) {
+        this.id = id;
         this.fechaInicio = fechaInicio;
         this.fechaVencimiento = fechaVencimiento;
         this.fechaFinalizado = fechaFinalizado;

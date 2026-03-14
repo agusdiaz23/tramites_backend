@@ -137,5 +137,8 @@ public class Tramite {
         this.eventosDisponibles = eventosDisponibles;
     }
 
+    public DtTramite obtenerDt(){
+        return new DtTramite(id, fechaInicio, fechaVencimiento, fechaFinalizado, tipo, estado);
+    }
 
 }

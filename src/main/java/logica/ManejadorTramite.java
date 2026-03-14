@@ -4,6 +4,8 @@ import datatypes.DtTramite;
 import jakarta.persistence.EntityManager;
 import persistencia.Conexion;
 
+import java.util.List;
+
 public class ManejadorTramite{
     private static ManejadorTramite instancia = null;
 
@@ -20,5 +22,8 @@ public class ManejadorTramite{
         return em.find(Tramite.class, id);
     }
 
+    public List<Tramite> traerTramites(EntityManager em){
+        return em.createQuery("SELECT t FROM Tramite t", Tramite.class).getResultList();
+    }
 
 }

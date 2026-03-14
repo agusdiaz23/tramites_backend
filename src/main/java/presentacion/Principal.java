@@ -10,10 +10,7 @@ import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 import javax.swing.SwingUtilities;
 
-import interfaces.Fabrica;
-import interfaces.IControladorTramite;
-import interfaces.IControladorUsuario;
-import interfaces.IControladorPerfil;
+import interfaces.*;
 
 public class Principal {
     private JFrame frame;
@@ -21,6 +18,7 @@ public class Principal {
     private AltaUsuarioInternalFrame altaUsuarioInternalFrame;
     private AltaPerfilInternalFrame altaPerfilInternalFrame;
     private IniciarTramiteInternalFrame iniciarTramiteInternalFrame;
+    private AsignarTramiteInternalFrame asignarTramiteInternalFrame;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
@@ -86,6 +84,7 @@ public class Principal {
         IControladorUsuario controladorUsuario = fabrica.getControladorUsuario();
         IControladorPerfil controladorPerfil = fabrica.getControladorPerfil();
         IControladorTramite controladorTramite = fabrica.getControladorTramite();
+        IControladorAsignarTramite controladorasignarTramite = fabrica.getControladorAsignarTramite();
 
         Dimension desktopSize = frame.getSize();
 
@@ -115,6 +114,15 @@ public class Principal {
         iniciarTramiteInternalFrame.setVisible(false);
         frame.getContentPane().add(iniciarTramiteInternalFrame);
 
+
+        asignarTramiteInternalFrame = new AsignarTramiteInternalFrame(controladorTramite, controladorPerfil,
+                controladorasignarTramite, this);
+        asignarTramiteInternalFrame.setLocation(
+                (desktopSize.width - asignarTramiteInternalFrame.getSize().width) / 2,
+                (desktopSize.height - asignarTramiteInternalFrame.getSize().height) / 2
+        );
+        asignarTramiteInternalFrame.setVisible(false);
+        frame.getContentPane().add(asignarTramiteInternalFrame);
     }
 
     private void initialize() {
@@ -149,6 +157,14 @@ public class Principal {
         JMenuItem mntmIniciarTramite = new JMenuItem("Iniciar Tramite");
         mntmIniciarTramite.addActionListener(e-> iniciarTramiteInternalFrame.setVisible(true));
         mnAñadir.add(mntmIniciarTramite);
+
+        JMenu mnAsignarTramite = new JMenu("Asignar");
+        mnAñadir.setMnemonic('A');
+        menuBar.add(mnAsignarTramite);
+
+        JMenuItem mntmAsignarTramite = new JMenuItem("Asignar Tramite");
+        mntmAsignarTramite.addActionListener(e-> asignarTramiteInternalFrame.setVisible(true));
+        mnAsignarTramite.add(mntmAsignarTramite);
 
        /* JMenuItem mntmAgregarBibliotecario = new JMenuItem("Agregar bibliotecario");
         mntmAgregarBibliotecario.addActionListener(e -> agregarBibliotecarioInternalFrame.setVisible(true));

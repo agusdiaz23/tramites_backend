@@ -2,6 +2,7 @@ package presentacion;
 
 import datatypes.*;
 import excepciones.YaExisteUsuarioExcepcion;
+import excepciones.YaTienePerfil;
 import interfaces.IControladorPerfil;
 import interfaces.IControladorUsuario;
 import logica.ControladorUsuario;
@@ -210,24 +211,26 @@ public class AltaPerfilInternalFrame extends JInternalFrame {
             DtUsuario usuarioSelecc = new DtUsuario();
             usuarioSelecc.setCi(ciUsuario);
 
+            DtPerfil DtNuevoPerfil = null;
+
             if(formularioPerfilActivo == TiposPerfil.CIUDADANO && checkFormularioCiudadano()){
                 //ARMAR PERFIL FUNCIONARIO
 
-                DtPerfilCiudadano nuevoPerfilCiudadano = new DtPerfilCiudadano();
+                DtPerfilCiudadano DtNuevoPerfilCiudadano = new DtPerfilCiudadano();
 
                 try{
                     fechaNacimiento = LocalDate.parse(textFieldFechaNacimiento.getText());
                     direccion = textFieldDireccion.getText();
                     estadoCivil = (EstadoCivil) comboboxEstadoCivil.getSelectedItem();
 
-                    nuevoPerfilCiudadano.setDireccion(direccion);
-                    nuevoPerfilCiudadano.setFechaNacimiento(fechaNacimiento);
-                    nuevoPerfilCiudadano.setEstadoCivil(estadoCivil);
+                    DtNuevoPerfilCiudadano.setDireccion(direccion);
+                    DtNuevoPerfilCiudadano.setFechaNacimiento(fechaNacimiento);
+                    DtNuevoPerfilCiudadano.setEstadoCivil(estadoCivil);
 
-                    iconPerfil.AltaPerfil(usuarioSelecc, nuevoPerfilCiudadano);
+                    DtNuevoPerfil = DtNuevoPerfilCiudadano;
 
                 }catch(DateTimeParseException dateTimeParseException){
-                    JOptionPane.showMessageDialog(this, "No se reconoce el formato de la fecha, debe ser el siguiente: YYYY/MM/DD.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "No se reconoce el formato de la fecha, debe ser el siguiente: YYYY-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
                     salir = false;
                 }
 
@@ -238,12 +241,20 @@ public class AltaPerfilInternalFrame extends JInternalFrame {
                 cargo = (Cargo) comboboxCargoFuncionario.getSelectedItem();
                 nuevoPerfilFuncionario.setCargo(cargo);
 
-                iconPerfil.AltaPerfil(usuarioSelecc, nuevoPerfilFuncionario);
-
+                DtNuevoPerfil = nuevoPerfilFuncionario;
             }
 
-            JOptionPane.showMessageDialog(this, "Perfil " + comboboxTipoPerfil.getSelectedItem() + "ha sido creado exitosamente.", "AltaPerfil", JOptionPane.INFORMATION_MESSAGE);
-            limpiarFormulario();
+            try {
+                iconPerfil.AltaPerfil(usuarioSelecc, DtNuevoPerfil);
+            }catch (YaTienePerfil exception){
+                JOptionPane.showMessageDialog(this, "El usuario ya tiene un perfil de ese tipo.", "Error", JOptionPane.ERROR_MESSAGE);
+                salir = false;
+            }
+
+            if(salir){
+                JOptionPane.showMessageDialog(this, "Perfil " + comboboxTipoPerfil.getSelectedItem() + "ha sido creado exitosamente.", "AltaPerfil", JOptionPane.INFORMATION_MESSAGE);
+                limpiarFormulario();
+            }
             setVisible(!salir);
         }
 
