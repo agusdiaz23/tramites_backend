@@ -38,6 +38,7 @@ public class ControladorAsignarTramite implements IControladorAsignarTramite {
             nuevoAsignaTramite.setFuncionarioAsignado(funcAsignado);
             nuevoAsignaTramite.setFuncionarioAsigna(funcAsigna);
 
+
             em.persist(nuevoAsignaTramite);
             em.getTransaction().commit();
             em.close();
@@ -47,21 +48,24 @@ public class ControladorAsignarTramite implements IControladorAsignarTramite {
 
     }
 
-    public void DesasignarTramite(DtTramite dtTramite, DtPerfilFuncionario dtFuncInspector){
+    public void desasignarTramite(DtPerfilFuncionario dtFuncJefe, DtTramite dtTramite, DtPerfilFuncionario dtFuncInspector){
         EntityManager em = Conexion.getInstancia().getEntityManager();
 
         em.getTransaction().begin();
 
         Tramite tramite = manejadorTramite.buscarTramite(dtTramite.getId(), em);
         PerfilFuncionario funcInspector = (PerfilFuncionario) manejadorPerfil.traerPerfil(dtFuncInspector.getId(), em);
+        PerfilFuncionario funcDesasigna = (PerfilFuncionario) manejadorPerfil.traerPerfil(dtFuncJefe.getId(), em);
 
-        //traigo unicamente las asignaciones activas
+        //traigo tramite asignado activo
         AsignaTramite asignaTramite = manejadorAsignaTramite.traerAsignaTramiteActivo(tramite, funcInspector, em);
-
         asignaTramite.setEstado(EstadoAsignado.INACTIVO);
-        asignaTramite.setFechaDesasignado(LocalDate.now());
+
+        DesasignaTramite nuevoDesasignado = new DesasignaTramite(asignaTramite, LocalDate.now(), funcDesasigna);
 
         em.persist(asignaTramite);
+        em.persist(nuevoDesasignado);
+
         em.getTransaction().commit();
         em.close();
     }
@@ -84,6 +88,18 @@ public class ControladorAsignarTramite implements IControladorAsignarTramite {
             perfiles.add(at.getFuncionarioAsignado().obtenerDt());
         }
         return perfiles;
+    }
+    public List<Object[]> funcionariosAsignadosTramiteInfoUsuario(DtTramite dtTramite){
+        EntityManager em = Conexion.getInstancia().getEntityManager();
+        List<Object[]> retorno = new ArrayList<>();
+
+
+        for(Object[] o : manejadorAsignaTramite.funcionariosAsignadosTramiteInfoUsuario(manejadorTramite.buscarTramite(dtTramite.getId(), em), em)){
+            retorno.add( new Object[]{ ((PerfilFuncionario)o[0]).obtenerDt(),
+                    ((Usuario)o[1]).obtenerDT()
+            } );
+        }
+        return retorno;
     }
 
 }

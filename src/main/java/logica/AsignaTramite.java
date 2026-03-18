@@ -17,8 +17,7 @@ public class AsignaTramite {
     //@Temporal(TemporalType.TIMESTAMP)
     private LocalDate fechaAsignado;
 
-    private LocalDate fechaDesasignado;
-
+    @Enumerated(EnumType.STRING)
     private EstadoAsignado estado;
 
     @ManyToOne
@@ -41,8 +40,6 @@ public class AsignaTramite {
         this.estado = EstadoAsignado.ACTIVO;
     }
 
-    public LocalDate getFechaDesasignado() {return fechaDesasignado;}
-    public void setFechaDesasignado(LocalDate fechaDesasignado) {this.fechaDesasignado = fechaDesasignado;}
     public EstadoAsignado getEstado() {return estado;}
     public void setEstado(EstadoAsignado estado) {this.estado = estado;}
     public PerfilFuncionario getFuncionarioAsigna() {return funcionarioAsigna;}

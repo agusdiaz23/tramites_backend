@@ -19,6 +19,7 @@ public class Principal {
     private AltaPerfilInternalFrame altaPerfilInternalFrame;
     private IniciarTramiteInternalFrame iniciarTramiteInternalFrame;
     private AsignarTramiteInternalFrame asignarTramiteInternalFrame;
+    private DesasignarTramiteInternalFrame desasignarTramiteInternalFrame;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
@@ -123,6 +124,15 @@ public class Principal {
         );
         asignarTramiteInternalFrame.setVisible(false);
         frame.getContentPane().add(asignarTramiteInternalFrame);
+
+        desasignarTramiteInternalFrame = new DesasignarTramiteInternalFrame(controladorTramite, controladorPerfil,
+                controladorasignarTramite, this);
+        desasignarTramiteInternalFrame.setLocation(
+                (desktopSize.width - desasignarTramiteInternalFrame.getSize().width) / 2,
+                (desktopSize.height - desasignarTramiteInternalFrame.getSize().height) / 2
+        );
+        desasignarTramiteInternalFrame.setVisible(false);
+        frame.getContentPane().add(desasignarTramiteInternalFrame);
     }
 
     private void initialize() {
@@ -165,6 +175,10 @@ public class Principal {
         JMenuItem mntmAsignarTramite = new JMenuItem("Asignar Tramite");
         mntmAsignarTramite.addActionListener(e-> asignarTramiteInternalFrame.setVisible(true));
         mnAsignarTramite.add(mntmAsignarTramite);
+
+        JMenuItem mntmDesasignarTramite = new JMenuItem("Desasignar Tramite");
+        mntmDesasignarTramite.addActionListener(e-> desasignarTramiteInternalFrame.setVisible(true));
+        mnAsignarTramite.add(mntmDesasignarTramite);
 
        /* JMenuItem mntmAgregarBibliotecario = new JMenuItem("Agregar bibliotecario");
         mntmAgregarBibliotecario.addActionListener(e -> agregarBibliotecarioInternalFrame.setVisible(true));

@@ -57,10 +57,10 @@ public class ManejadorAsignaTramite {
         //Devuelve unico resultado, tupla de asignaTramite donde (idTramite, idFuncAsignado) & estado = ACTIVO.
 
         return em.createQuery("SELECT at FROM AsignaTramite at " +
-                "WHERE at.tramite = tramite " +
-                "AND at.funcionarioAsignado = funcInspector " +
-                "AND at.estado = :estado", AsignaTramite.class)
-                .setParameter("estado", EstadoAsignado.ACTIVO).getSingleResult();
+                "WHERE at.tramite = :tramite " +
+                "AND at.funcionarioAsignado = :funcInspector " +
+                "AND at.estado = :estado", AsignaTramite.class).setParameter("tramite", tramite)
+                .setParameter("funcInspector", funcInspector).setParameter("estado", EstadoAsignado.ACTIVO).getSingleResult();
     }
 
     public boolean funcionarioEstaAsignadoATramite(PerfilFuncionario pf, Tramite tramite){
@@ -73,5 +73,15 @@ public class ManejadorAsignaTramite {
                 .setParameter("perfilFuncionario", pf).getSingleResult();
 
         return filas > 0;
+    }
+
+    public List<Object[]> funcionariosAsignadosTramiteInfoUsuario(Tramite tramite, EntityManager em){
+        return em.createQuery("SELECT pf, u " +
+                        "FROM AsignaTramite at " +
+                        "JOIN at.funcionarioAsignado pf " +
+                        "JOIN FETCH pf.usuario u " +
+                        "WHERE at.tramite = :tramite " +
+                        "AND at.estado = :estado").setParameter("estado", EstadoAsignado.ACTIVO)
+                .setParameter("tramite", tramite).getResultList();
     }
 }
