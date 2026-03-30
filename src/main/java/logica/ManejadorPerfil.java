@@ -47,4 +47,20 @@ public class ManejadorPerfil {
         return em.createQuery("SELECT pf,u FROM PerfilFuncionario pf " +
                 "JOIN FETCH pf.usuario u").getResultList();
     }
+
+    public List<Object[]> verPerfilesFuncionarioPorTramite(int idTramite, EntityManager em){
+        //trae informacion del usuario mediante join fetch
+        return em.createQuery("SELECT pf,u,t FROM AsignaTramite at " +
+                "JOIN at.funcionarioAsignado pf " +
+                "JOIN pf.usuario u " +
+                "JOIN at.tramite t " +
+                "WHERE t.id = :idTramite").setParameter("idTramite", idTramite).getResultList();
+    }
+
+    public List<Object[]> verPerfilesCiudadanoPorTramite(int idTramite, EntityManager em){
+        //trae informacion del usuario mediante join fetch
+        return em.createQuery("SELECT pc, t FROM Tramite t " +
+                "JOIN t.ciudadano pc " +
+                "WHERE t.id = idTramite").setParameter("idTramite", idTramite) .getResultList();
+    }
 }

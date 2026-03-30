@@ -21,9 +21,7 @@ public class EventoTramite {
     @ManyToOne
     private Tramite tramite;
     @ManyToOne
-    private EventoTramite evento;
-    @ManyToOne
-    private PerfilFuncionario funcionario;
+    private Perfil perfil;
 
     public EventoTramite(){}
     public EventoTramite(LocalDate fecha, TipoEvento tipo, String motivo){
@@ -31,27 +29,52 @@ public class EventoTramite {
         this.tipo = tipo;
         this.motivo = motivo;
     }
-    public void setId(int id){this.id = id;}
-    public void setFecha(LocalDate fecha){this.fecha = fecha;}
-    public void setTipo(TipoEvento tipo){this.tipo = tipo;}
-    public void setMotivo(String motivo){this.motivo = motivo;}
-    public int getId(){return this.id;}
-    public LocalDate getFecha(){return this.fecha;}
-    public TipoEvento getTipo(){return this.tipo;}
-    public String getMotivo(){return this.motivo;}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public TipoEvento getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoEvento tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
 
     public Tramite getTramite() {
         return tramite;
     }
+
     public void setTramite(Tramite tramite) {
         this.tramite = tramite;
     }
 
-    public PerfilFuncionario getFuncionario() {
-        return funcionario;
+    public Perfil getPerfil() {
+        return perfil;
     }
 
-    public void setFuncionario(PerfilFuncionario funcionario) {
-        this.funcionario = funcionario;
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
     }
 }

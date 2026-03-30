@@ -6,6 +6,7 @@ import datatypes.DtUsuario;
 import datatypes.DtPerfil;
 import excepciones.YaTienePerfil;
 import interfaces.IControladorPerfil;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import persistencia.Conexion;
 
@@ -99,6 +100,31 @@ public class ControladorPerfil implements IControladorPerfil {
             retorno.add( new Object[]{ ((PerfilFuncionario)o[0]).obtenerDt(),
                             ((Usuario)o[1]).obtenerDT()
                             } );
+        }
+        return retorno;
+    }
+
+    public List<Object[]> verPerfilesFuncionarioPorTramite(int idTramite){
+        EntityManager em = Conexion.getInstancia().getEntityManager();
+
+        List<Object[]> retorno = new ArrayList<>();
+
+        for(Object[] o : manejadorPerfil.verPerfilesFuncionarioPorTramite(idTramite, em)){
+            retorno.add( new Object[] { ((PerfilFuncionario)o[0]).obtenerDt(),
+                    ((Usuario)o[1]).obtenerDT(),
+                    ((Tramite)o[2]).obtenerDt()});
+        }
+        return retorno;
+    }
+    public List<Object[]> verPerfilesCiudadanoPorTramite(int idTramite){
+        EntityManager em = Conexion.getInstancia().getEntityManager();
+
+        List<Object[]> retorno = new ArrayList<>();
+
+        for(Object[] o : manejadorPerfil.verPerfilesCiudadanoPorTramite(idTramite, em)){
+            retorno.add( new Object[] { ((PerfilFuncionario)o[0]).obtenerDt(),
+                    ((Usuario)o[1]).obtenerDT(),
+                    ((Tramite)o[2]).obtenerDt()});
         }
         return retorno;
     }

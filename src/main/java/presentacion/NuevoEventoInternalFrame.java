@@ -1,11 +1,11 @@
 package presentacion;
 
 import datatypes.*;
-import excepciones.YaExisteUsuarioExcepcion;
 import excepciones.YaTienePerfil;
+import interfaces.IControladorEventoTramite;
 import interfaces.IControladorPerfil;
+import interfaces.IControladorTramite;
 import interfaces.IControladorUsuario;
-import logica.ControladorUsuario;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,13 +15,14 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Objects;
 
-public class AltaPerfilInternalFrame extends JInternalFrame {
+public class NuevoEventoInternalFrame extends JInternalFrame {
 
     private static final long serialVersionUID = 1L;
 
     private Principal principal;
     private IControladorPerfil iconPerfil;
-   // private IControladorUsuario iconUsuario;
+    private IControladorTramite iconTramite;
+    private IControladorEventoTramite iconEventoTramite;
 
     private JComboBox comboboxUsuarios;
     private JComboBox comboboxTipoPerfil;
@@ -38,11 +39,16 @@ public class AltaPerfilInternalFrame extends JInternalFrame {
 
     private TiposPerfil formularioPerfilActivo;
 
-    public AltaPerfilInternalFrame(IControladorUsuario iconUsuario, IControladorPerfil iconPerfil, Principal principal) {
+    public NuevoEventoInternalFrame(IControladorTramite iconTramite,
+                                    IControladorPerfil iconPerfil,
+                                    IControladorEventoTramite iconEventoTramite,
+                                    Principal principal) {
+        this.iconTramite = iconTramite;
         this.iconPerfil = iconPerfil;
+        this.iconEventoTramite = iconEventoTramite;
         this.principal = principal;
 
-        setTitle("Nuevo Perfil");
+        setTitle("Nuevo evento");
         setBounds(100, 100, 450, 250);
         setResizable(false);
         setClosable(true);
@@ -50,17 +56,17 @@ public class AltaPerfilInternalFrame extends JInternalFrame {
         setMaximizable(false);
         getContentPane().setLayout(null);
 
-        JLabel lblUsuario = new JLabel("Usuario:");
+        JLabel lblUsuario = new JLabel("ID Tramite:");
         lblUsuario.setBounds(10, 20, 80, 20);
         getContentPane().add(lblUsuario);
 
-        comboboxUsuarios = new JComboBox<>(iconUsuario.verCiUsuarios().toArray()); //TRAER USUARIOS CON UNA FUNCION
-        comboboxUsuarios.setBounds(100, 20, 250, 20);;
-        getContentPane().add(comboboxUsuarios);
+        textFieldTramite = new JTextField(); //TRAER USUARIOS CON UNA FUNCION
+        textFieldTramite.setBounds(100, 20, 250, 20);
+        getContentPane().add(textFieldTramite);
 
-        JLabel lblTipoPerfil = new JLabel("Tipo Perfil:");
-        lblTipoPerfil.setBounds(10, 55, 80, 20);
-        getContentPane().add(lblTipoPerfil);
+        JLabel lblPerfil = new JLabel("Perfil:");
+        lblPerfil.setBounds(10, 55, 80, 20);
+        getContentPane().add(lblPerfil);
 
         comboboxTipoPerfil = new JComboBox<>(TiposPerfil.values());
         comboboxTipoPerfil.setBounds(100, 55, 250, 20);
@@ -69,60 +75,26 @@ public class AltaPerfilInternalFrame extends JInternalFrame {
         comboboxTipoPerfil.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(Objects.equals(comboboxTipoPerfil.getSelectedItem().toString(), "CIUDADANO")){
-                    DesactivarOpcionesFuncionarioActionPerformed();
-                    ActivarOpcionesCiudadanoActionPerformed();
-                }else {
-                    DesactivarOpcionesCiudadanoActionPerformed();
-                    ActivarOpcionesFuncionarioActionPerformed();
-                }
+
             }
         });
 
-        lblDireccion = new JLabel("Direccion:");
-        lblDireccion.setBounds(10, 90, 80, 20);
-        getContentPane().add(lblDireccion);
-        lblDireccion.setVisible(false);
 
-        textFieldDireccion = new JTextField();
-        textFieldDireccion.setBounds(100, 90, 250, 20);
-        getContentPane().add(textFieldDireccion);
-        textFieldDireccion.setVisible(false);
+        lblEvento = new JLabel("Eventos Disponibles:");
+        lblEvento.setBounds(10, 90, 80, 20);
+        getContentPane().add(lblEvento);
+        lblEvento.setVisible(false);
 
-        lblFechaNacimiento = new JLabel("Fecha nacimiento:");
-        lblFechaNacimiento.setBounds(10, 125, 80, 20);
-        getContentPane().add(lblFechaNacimiento);
-        lblFechaNacimiento.setVisible(false);
+        comboboxEvento = new JComboBox<>();
+        comboboxEvento.setBounds(100, 90, 250, 20);
+        getContentPane().add(comboboxEvento);
+        comboboxEvento.setVisible(false);
 
-        textFieldFechaNacimiento = new JTextField();
-        textFieldFechaNacimiento.setBounds(100, 125, 250, 20);
-        getContentPane().add(textFieldFechaNacimiento);
-        textFieldFechaNacimiento.setVisible(false);
-
-        lblEstadoCivil = new JLabel("Estado civil:");
-        lblEstadoCivil.setBounds(10, 160, 80, 20);
-        getContentPane().add(lblEstadoCivil);
-        lblEstadoCivil.setVisible(false);
-
-        comboboxEstadoCivil = new JComboBox<>(EstadoCivil.values());
-        comboboxEstadoCivil.setBounds(100, 160, 250, 20);
-        getContentPane().add(comboboxEstadoCivil);
-        comboboxEstadoCivil.setVisible(false);
-
-        lblCargo = new JLabel("Cargo:");
-        lblCargo.setBounds(10, 90, 80, 20);
-        getContentPane().add(lblCargo);
-        lblCargo.setVisible(false);
-
-        comboboxCargoFuncionario = new JComboBox<>(Cargo.values());
-        comboboxCargoFuncionario.setBounds(100, 90, 250, 20);
-        getContentPane().add(comboboxCargoFuncionario);
-        comboboxCargoFuncionario.setVisible(false);
 
         btnAceptar = new JButton("Aceptar");
         btnAceptar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                altaUsuarioAceptarActionPerformed(e);
+                aceptarActionPerformed(e);
             }
         });
         btnAceptar.setBounds(90, 180, 89, 23);
@@ -149,115 +121,22 @@ public class AltaPerfilInternalFrame extends JInternalFrame {
         getContentPane().add(btnCancelar);
     }
 
-    protected void altaUsuarioRefrescarActionPerformed(ActionEvent e, IControladorUsuario iconUsuario){
+    protected void altaUsuarioRefrescarActionPerformed(ActionEvent e, IControladorUsuario iconUsuario) {
         comboboxUsuarios.removeAllItems();
         List<String> usuarios = iconUsuario.verCiUsuarios();
 
-        for(String ci : usuarios){
+        for (String ci : usuarios) {
             comboboxUsuarios.addItem(ci);
         }
 
     }
-    protected void ActivarOpcionesCiudadanoActionPerformed(){
-        lblDireccion.setVisible(true);
-        textFieldDireccion.setVisible(true);
-        lblFechaNacimiento.setVisible(true);
-        textFieldFechaNacimiento.setVisible(true);
-        lblEstadoCivil.setVisible(true);
-        comboboxEstadoCivil.setVisible(true);
-
-        btnAceptar.setBounds(90, 195, 89, 23);
-        btnCancelar.setBounds(261, 195, 89, 23);
-        btnAceptar.setEnabled(true);
-
-        formularioPerfilActivo = TiposPerfil.CIUDADANO;
-    }
-    protected void DesactivarOpcionesCiudadanoActionPerformed(){
-        lblDireccion.setVisible(false);
-        textFieldDireccion.setVisible(false);
-        lblFechaNacimiento.setVisible(false);
-        textFieldFechaNacimiento.setVisible(false);
-        lblEstadoCivil.setVisible(false);
-        comboboxEstadoCivil.setVisible(false);
-    }
-    protected void ActivarOpcionesFuncionarioActionPerformed(){
-        lblCargo.setVisible(true);
-        comboboxCargoFuncionario.setVisible(true);
-        btnAceptar.setBounds(90, 125, 89, 23);
-        btnCancelar.setBounds(261, 125, 89, 23);
-        btnAceptar.setEnabled(true);
-        formularioPerfilActivo = TiposPerfil.FUNCIONARIO;
-    }
-    protected void DesactivarOpcionesFuncionarioActionPerformed(){
-        lblCargo.setVisible(false);
-        comboboxCargoFuncionario.setVisible(false);
-    }
-
-    protected void altaUsuarioAceptarActionPerformed(ActionEvent e) {
-
-        Boolean salir = true;
-
-        String ciUsuario;
-        LocalDate fechaNacimiento;
-        String direccion;
-        EstadoCivil estadoCivil;
-
-        Cargo cargo;
+    protected void aceptarActionPerformed(ActionEvent e) {
 
         if (checkFormulario()) {
 
-            ciUsuario = comboboxUsuarios.getSelectedItem().toString();
-
-            DtUsuario usuarioSelecc = new DtUsuario();
-            usuarioSelecc.setCi(ciUsuario);
-
-            DtPerfil DtNuevoPerfil = null;
-
-            if(formularioPerfilActivo == TiposPerfil.CIUDADANO && checkFormularioCiudadano()){
-                //ARMAR PERFIL FUNCIONARIO
-
-                DtPerfilCiudadano DtNuevoPerfilCiudadano = new DtPerfilCiudadano();
-
-                try{
-                    fechaNacimiento = LocalDate.parse(textFieldFechaNacimiento.getText());
-                    direccion = textFieldDireccion.getText();
-                    estadoCivil = (EstadoCivil) comboboxEstadoCivil.getSelectedItem();
-
-                    DtNuevoPerfilCiudadano.setDireccion(direccion);
-                    DtNuevoPerfilCiudadano.setFechaNacimiento(fechaNacimiento);
-                    DtNuevoPerfilCiudadano.setEstadoCivil(estadoCivil);
-
-                    DtNuevoPerfil = DtNuevoPerfilCiudadano;
-
-                }catch(DateTimeParseException dateTimeParseException){
-                    JOptionPane.showMessageDialog(this, "No se reconoce el formato de la fecha, debe ser el siguiente: YYYY-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
-                    salir = false;
-                }
-
-            }else if(formularioPerfilActivo == TiposPerfil.FUNCIONARIO && checkFormularioFuncionario()){
-                //ARMAR PERFIL CIUDADANO
-
-                DtPerfilFuncionario nuevoPerfilFuncionario = new DtPerfilFuncionario();
-                cargo = (Cargo) comboboxCargoFuncionario.getSelectedItem();
-                nuevoPerfilFuncionario.setCargo(cargo);
-
-                DtNuevoPerfil = nuevoPerfilFuncionario;
-            }
-
-            try {
-                iconPerfil.AltaPerfil(usuarioSelecc, DtNuevoPerfil);
-            }catch (YaTienePerfil exception){
-                JOptionPane.showMessageDialog(this, "El usuario ya tiene un perfil de ese tipo.", "Error", JOptionPane.ERROR_MESSAGE);
-                salir = false;
-            }
-
-            if(salir){
-                JOptionPane.showMessageDialog(this, "Perfil " + comboboxTipoPerfil.getSelectedItem() + "ha sido creado exitosamente.", "AltaPerfil", JOptionPane.INFORMATION_MESSAGE);
-                limpiarFormulario();
-            }
-            setVisible(!salir);
+            JOptionPane.showMessageDialog(this, "Perfil " + comboboxTipoPerfil.getSelectedItem() + "ha sido creado exitosamente.", "AltaPerfil", JOptionPane.INFORMATION_MESSAGE);
+            limpiarFormulario();
         }
-
     }
 
     protected void altaUsuarioCancelarActionPerformed(ActionEvent e) {
@@ -268,20 +147,6 @@ public class AltaPerfilInternalFrame extends JInternalFrame {
     //CAMBIARLO A BOOLEAN
     private boolean checkFormulario() {
         if (comboboxUsuarios.getSelectedIndex() == -1 || comboboxTipoPerfil.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos.", "Alta Bibliotecario", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
-    }
-        private boolean checkFormularioCiudadano() {
-        if (textFieldDireccion.getText().isEmpty() || textFieldFechaNacimiento.getText().isEmpty() || comboboxEstadoCivil.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos.", "Alta Bibliotecario", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
-    }
-        private boolean checkFormularioFuncionario() {
-        if (comboboxCargoFuncionario.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacíos.", "Alta Bibliotecario", JOptionPane.ERROR_MESSAGE);
             return false;
         }

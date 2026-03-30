@@ -38,7 +38,7 @@ public class ControladorEventoTramite implements IControladorEventoTramite {
             if(dtPerfil instanceof DtPerfilFuncionario){
                 PerfilFuncionario funcionario = (PerfilFuncionario) ManejadorPerfil.getInstancia().
                         traerPerfil(dtPerfil.getId(), em);
-                eventoTramite.setFuncionario(funcionario);
+                eventoTramite.setPerfil(funcionario);
             }
 
             em.persist(eventoTramite);

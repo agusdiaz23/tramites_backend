@@ -16,4 +16,6 @@ public interface IControladorPerfil {
     public List<DtPerfilFuncionario> verPerfilesFuncionarioJefes();
     public List<DtPerfilFuncionario> verPerfilesFuncionarioInspectores();
     public List<Object[]> verPerfilesFuncionarioInfoUsuario();
+    public List<Object[]> verPerfilesFuncionarioPorTramite(int idTramite);
+    public List<Object[]> verPerfilesCiudadanoPorTramite(int idTramite);
 }
